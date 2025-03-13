@@ -82,15 +82,15 @@
                             </table>
                         </div>
                     </fieldset>
-                    <div class="row mb-2">
-                        <div class="col-md-3">
-                            <input type="hidden" name="id" value="{{ user.id }}">
-                            <button type="button" id="submitBtn" data-bs-toggle="modal" data-bs-target="#confirm-submit"
-                                    class="btn btn-success"><i class="fa fa-save"></i> Save
-                            </button>
-                            <a class="btn btn-danger" href="{{ BASE_URL }}/users"><i class="fa fa-times"></i> Cancel</a>
-                        </div>
-                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3">
+                    <input type="hidden" name="id" value="{{ user.id }}">
+                    <button type="button" id="submitBtn" data-bs-toggle="modal" data-bs-target="#confirm-submit"
+                            class="btn btn-success"><i class="fa fa-save"></i> Save
+                    </button>
+                    <a class="btn btn-danger" href="{{ BASE_URL }}/users"><i class="fa fa-times"></i> Cancel</a>
                 </div>
             </div>
         </form>
