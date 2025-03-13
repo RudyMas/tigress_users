@@ -1,0 +1,69 @@
+{
+  "routes": [
+    {
+      "request": "GET",
+      "path": "/users",
+      "controller": "users\\UsersController",
+      "method": "index",
+      "level_rights": [
+        90
+      ],
+      "special_rights": "users",
+      "special_rights_default": []
+    },
+    {
+      "request": "POST",
+      "path": "/users/delete",
+      "controller": "users\\UsersCrudController",
+      "method": "deleteUser",
+      "level_rights": [
+        90
+      ]
+    },
+    {
+      "request": "POST",
+      "path": "/users/undelete",
+      "controller": "users\\UsersCrudController",
+      "method": "undeleteUser",
+      "level_rights": [
+        90
+      ]
+    },
+    {
+      "request": "GET",
+      "path": "/users/edit/{id}",
+      "controller": "users\\UsersController",
+      "method": "editUser"
+    },
+    {
+      "request": "POST",
+      "path": "/users/edit/{id}",
+      "controller": "users\\UsersCrudController",
+      "method": "saveUser",
+      "level_rights": [
+        90
+      ]
+    },
+    {
+      "request": "GET",
+      "path": "/users/get/{toon}",
+      "controller": "users\\UsersCrudController",
+      "method": "getUsers"
+    },
+    {
+      "request": "GET",
+      "path": "/users/rechten/{id}",
+      "controller": "users\\UsersController",
+      "method": "editUserRights"
+    },
+    {
+      "request": "POST",
+      "path": "/users/rechten/{id}",
+      "controller": "users\\UsersCrudController",
+      "method": "saveUserRights",
+      "level_rights": [
+        90
+      ]
+    }
+  ]
+}
