@@ -27,7 +27,7 @@ class UsersController
      */
     public function __construct()
     {
-        TWIG->addPath('vendor/olsc/users/src/views');
+        TWIG->addPath('vendor/tigress/users/src/views');
     }
 
     /**
@@ -45,7 +45,6 @@ class UsersController
         }
 
         TWIG->render('users/index.twig', [
-            'filterOptiesTeams' => new teamsRepo()->getSelectOptions(0, 'Allemaal', 'team', 'team'),
         ]);
     }
 
