@@ -6,7 +6,7 @@
       "controller": "users\\UsersController",
       "method": "index",
       "level_rights": [
-        90
+        100
       ],
       "special_rights": "users",
       "special_rights_default": []
@@ -17,7 +17,7 @@
       "controller": "users\\UsersCrudController",
       "method": "deleteUser",
       "level_rights": [
-        90
+        100
       ]
     },
     {
@@ -26,7 +26,7 @@
       "controller": "users\\UsersCrudController",
       "method": "undeleteUser",
       "level_rights": [
-        90
+        100
       ]
     },
     {
@@ -41,28 +41,28 @@
       "controller": "users\\UsersCrudController",
       "method": "saveUser",
       "level_rights": [
-        90
+        100
       ]
     },
     {
       "request": "GET",
-      "path": "/users/get/{toon}",
+      "path": "/users/get/{show}",
       "controller": "users\\UsersCrudController",
       "method": "getUsers"
     },
     {
       "request": "GET",
-      "path": "/users/rechten/{id}",
+      "path": "/users/rights/{id}",
       "controller": "users\\UsersController",
       "method": "editUserRights"
     },
     {
       "request": "POST",
-      "path": "/users/rechten/{id}",
+      "path": "/users/rights/{id}",
       "controller": "users\\UsersCrudController",
       "method": "saveUserRights",
       "level_rights": [
-        90
+        100
       ]
     }
   ]

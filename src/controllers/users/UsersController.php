@@ -2,9 +2,7 @@
 
 namespace Controller\users;
 
-use Repository\linkUsersScholenRepo;
 use Repository\systemRightsRepo;
-use Repository\teamsRepo;
 use Repository\userRightsRepo;
 use Repository\usersRepo;
 use Twig\Error\LoaderError;
@@ -12,13 +10,13 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
 /**
- * Class UsersController
+ * Class UsersController (PHP version 8.4)
  *
- * @author Rudy Mas <rudy.mas@go-next.be>
- * @copyright 2024 GO! Next (https://www.go-next.be)
- * @license Proprietary
- * @version 2024.12.13.0
- * @package Controller\olsc
+ * @author Rudy Mas <rudy.mas@rudymas.be>
+ * @copyright 2025 Rudy Mas (https://rudymas.be)
+ * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
+ * @version 2025.03.13.0
+ * @package Tigress\Users
  */
 class UsersController
 {
@@ -39,8 +37,8 @@ class UsersController
      */
     public function index(): void
     {
-        if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = "U heeft niet de juiste rechten om de users pagina te bekijken.";
+        if (RIGHTS->checkRights('read') === false) {
+            $_SESSION['error'] = "You do not have the appropriate permissions to view the users page.";
             TWIG->redirect('/login');
         }
 
@@ -59,8 +57,8 @@ class UsersController
      */
     public function editUser(array $args): void
     {
-        if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = "U heeft niet de juiste rechten om de users pagina te bekijken.";
+        if (RIGHTS->checkRights('read') === false) {
+            $_SESSION['error'] = "You do not have the appropriate permissions to view the users page.";
             TWIG->redirect('/login');
         }
 
@@ -71,15 +69,13 @@ class UsersController
         $users->loadById($args['id']);
 
         if ($users->isEmpty()) {
-            $_SESSION['error'] = "Gebruiker niet gevonden.";
+            $_SESSION['error'] = "We couldn't find the user's information.";
             TWIG->redirect('/users');
         }
 
         TWIG->render('users/edit.twig', [
-            'user' => $users->current()->getProperties(),
-            'selectOptiesRechten' => new userRightsRepo()->getSelectOptions($users->current()->access_level, false),
-            'selectOptiesUsersScholen' => new linkUsersScholenRepo()->getSelectOptiesUsersScholenByUserId($users->current()->id),
-            'selectOptiesTeams' => new teamsRepo()->getSelectOptions($users->current()->team_id),
+            'user' => $users->current(),
+            'selectOptiesRights' => new userRightsRepo()->getSelectOptions($users->current()->access_level, false),
         ]);
     }
 
@@ -93,7 +89,7 @@ class UsersController
     public function editUserRights(array $args): void
     {
         if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = "U heeft niet de juiste rechten om de users rechten pagina te bekijken.";
+            $_SESSION['error'] = "You do not have the appropriate permissions to view the users rights page.";
             TWIG->redirect('/login');
         }
 
@@ -101,37 +97,31 @@ class UsersController
         SECURITY->checkReferer(['/users']);
 
         $users = new usersRepo();
-        $user = $users->getById($args['id'])[0];
+        $users->loadById($args['id']);
+        $user = $users->current();
 
         $systemRights = new systemRightsRepo();
-        $rechten = $systemRights->getRightsByUserId($args['id']);
+        $userRights = $systemRights->getRightsByUserId($args['id']);
 
         $security = $systemRights->createSecurityMatrix('home/tiles.json');
 
+        $rightsMatrix = [];
         foreach ($security as $key => $value) {
             if (!strpos(json_encode($value), 'special_rights')) continue;
             foreach ($value as $keySub => $valueSub) {
                 if (!isset($valueSub['special_rights'])) continue;
-                $rights[$key][$keySub]['special_rights'] = $valueSub['special_rights'];
-                $rights[$key][$keySub]['access'] = $rechten[$valueSub['special_rights']]['access'] ?? 0;
-                $rights[$key][$keySub]['read'] = $rechten[$valueSub['special_rights']]['read'] ?? 0;
-                $rights[$key][$keySub]['write'] = $rechten[$valueSub['special_rights']]['write'] ?? 0;
-                $rights[$key][$keySub]['delete'] = $rechten[$valueSub['special_rights']]['delete'] ?? 0;
-                $rights[$key][$keySub]['all'] = in_array($user->access_level, $valueSub['level_rights']) || $user->access_level == 100;
+                $rightsMatrix[$key][$keySub]['special_rights'] = $valueSub['special_rights'];
+                $rightsMatrix[$key][$keySub]['access'] = $userRights[$valueSub['special_rights']]['access'] ?? 0;
+                $rightsMatrix[$key][$keySub]['read'] = $userRights[$valueSub['special_rights']]['read'] ?? 0;
+                $rightsMatrix[$key][$keySub]['write'] = $userRights[$valueSub['special_rights']]['write'] ?? 0;
+                $rightsMatrix[$key][$keySub]['delete'] = $userRights[$valueSub['special_rights']]['delete'] ?? 0;
+                $rightsMatrix[$key][$keySub]['all'] = in_array($user->access_level, $valueSub['level_rights']) || $user->access_level == 100;
             }
         }
 
-        TWIG->render('users/rechten.twig', [
+        TWIG->render('users/edit_rights.twig', [
             'user' => $user,
-            'rechten' => $rights,
-            'optionsFunctieFunEva' => [
-                0 => 'Gebruiker',
-                1 => 'Coach',
-                2 => 'Evaluator',
-                3 => 'Coach & Evaluator',
-                4 => 'Directie',
-                5 => 'Personeelsdienst',
-            ],
+            'rightsMatrix' => $rightsMatrix,
         ]);
     }
 }

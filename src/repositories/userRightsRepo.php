@@ -31,7 +31,7 @@ class userRightsRepo extends Repository
      */
     public function getSelectOptions(
         int $right_id,
-        string $text = 'Select type user',
+        string $text = 'Select access level',
         string $display = 'name',
         string $value = 'id'
     ): string

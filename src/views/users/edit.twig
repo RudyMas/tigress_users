@@ -1,89 +1,88 @@
 {% extends 'base.twig' %}
 {% block js %}
     {{ parent() }}
-    <script src="{{ BASE_URL }}/vendor/olsc/gebruikers/public/javascript/gebruikers/edit.js"></script>
+    <script src="{{ BASE_URL }}/vendor/tigress/users/public/javascript/users/edit.js"></script>
+{% endblock %}
+{% block title %}Edit User Information{% endblock %}
+{% block breadcrumb %}
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb" data-bs-theme="dark">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/users">Users</a></li>
+                    <li class="breadcrumb-item active">Edit User Information</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
 {% endblock %}
 {% block content %}
     <div class="container">
-        <div class="row">
+        <div class="row mb-2">
             <div class="col-md-9">
-                <h3>Gebruiker - Aanpassen</h3>
+                <h3>Edit User Information</h3>
             </div>
             <div class="col-md-3 text-end">
-                <a class="btn btn-primary" href="{{ BASE_URL }}/gebruikers"><i class="fa fa-arrow-left"></i> Terug</a>
             </div>
         </div>
         <form id="form" method="post" enctype="multipart/form-data">
-            <div class="row">
+            <div class="row mb-2">
                 <div class="col-md-12">
-                    <fieldset class="mt-3">
+                    <fieldset class="mt-2">
                         <input type="hidden" id="id" name="id" value="{{ user.id }}">
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <label for="last_name" class="form-label"><b>Naam</b></label>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <label for="last_name" class="form-label"><b>Family Name</b></label>
                                 <input class="form-control" id="last_name" name="last_name" type="text"
-                                       value="{{ user.last_name }}" disabled>
+                                       value="{{ user.last_name }}">
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <label for="first_name" class="form-label"><b>Voornaam</b></label>
+                            <div class="col-md-6">
+                                <label for="first_name" class="form-label"><b>Firstname</b></label>
                                 <input class="form-control" id="first_name" name="first_name" type="text"
-                                       value="{{ user.first_name }}" disabled>
+                                       value="{{ user.first_name }}">
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <div class="row mb-2">
                             <div class="col-md-3">
-                                <label for="modified" class="form-label"><b>Login</b></label>
-                                <input class="form-control" id="modified" name="modified" type="text"
-                                       value="{{ user.modified|date('d-m-Y, H:i:s') }}" disabled>
+                                <label for="modified" class="form-label"><b>Last Login</b></label>
+                                <input class="form-control" id="modified" name="modified" type="datetime-local"
+                                       value="{{ user.modified }}" disabled>
                             </div>
                             <div class="col-md-9">
-                                <label for="email" class="form-label"><b>Email</b></label>
-                                <input class="form-control" id="email" name="email" type="text" value="{{ user.email }}"
-                                       disabled>
+                                <label for="email" class="form-label"><b>E-mail</b></label>
+                                <input class="form-control" id="email" name="email" type="text"
+                                       value="{{ user.email }}">
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <div class="row mb-2">
                             <div class="col-xl-4 col-md-6">
-                                <label for="access_level" class="form-label"><b>Rechten</b></label>
+                                <label for="access_level" class="form-label"><b>Access Level</b></label>
                                 <select class="form-select" name="access_level" id="access_level" required>
-                                    {{ selectOptiesRechten|raw }}
-                                </select>
-                            </div>
-                            <div class="col-xl-4 col-md-6" id="school-group">
-                                <label for="link_user_school" class="form-label"><b>School</b></label>
-                                <select class="form-select" name="link_user_school[]" id="link_user_school" multiple>
-                                    {{ selectOptiesUsersScholen|raw }}
-                                </select>
-                            </div>
-                            <div class="col-xl-4 col-md-6" id="team-group">
-                                <label for="team_id" class="form-label"><b>Team</b></label>
-                                <select class="form-select" name="team_id" id="team_id">
-                                    {{ selectOptiesTeams|raw }}
+                                    {{ selectOptiesRights|raw }}
                                 </select>
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <div class="row mb-2">
                             <div class="col-xl-4 col-md-6">
                                 <input type="hidden" name="save_default" value="0">
                                 <label for="save_default" class="slider-container">
                                     <input type="checkbox" id="save_default" name="save_default"
-                                           class="slider-checkbox" value="1" checked>
-                                    <span class="slider-label"></span> <b>Standaard rechten instellen</b>
+                                           class="slider-checkbox" value="1">
+                                    <span class="slider-label"></span> <b>Set default permissions</b>
                                 </label>
                             </div>
                         </div>
                     </fieldset>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-2">
                 <div class="col-md-3">
-                    <input type="hidden" name="action" value="Aanpassen">
+                    <input type="hidden" name="action" value="Update">
                     <button type="button" id="submitBtn" data-bs-toggle="modal" data-bs-target="#confirm-submit"
-                            class="btn btn-success">Aanpassen
+                            class="btn btn-success"><i class="fa fa-save"></i> Save
                     </button>
-                    <a class="btn btn-danger" href="{{ BASE_URL }}/gebruikers">Annuleren</a>
+                    <a class="btn btn-danger" href="{{ BASE_URL }}/users"><i class="fa fa-times"></i> Cancel</a>
                 </div>
             </div>
         </form>
@@ -91,18 +90,18 @@
 
     <!-- Modal Dialog -->
     <div class="modal fade" id="confirm-submit" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="color: black">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Opgelet!</h5>
+                    <h5 class="modal-title">Update User</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Ben je zeker dat je de gebruiker wilt aanpassen?</p>
+                    <p>Are you sure you want to modify the user?</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" id="submit" class="btn btn-success">Aanpassen</a>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuleer</button>
+                    <a href="#" id="submit" class="btn btn-success">Yes</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
                 </div>
             </div>
         </div>

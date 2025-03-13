@@ -1,0 +1,117 @@
+{% extends 'datatable.twig' %}
+{% block css %}
+    {{ parent() }}
+    <link href="/vendor/tigress/users/public/css/users/edit_rights.css" rel="stylesheet">
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script src="/vendor/tigress/users/public/javascript/users/edit_rights.js"></script>
+{% endblock %}
+{% block title %}Edit User Rights{% endblock %}
+{% block breadcrumb %}
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb" data-bs-theme="dark">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/users">Users</a></li>
+                    <li class="breadcrumb-item active">Edit User Rights</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-md-9">
+                <h3>User Rights</h3>
+            </div>
+            <div class="col-md-3 text-end">
+            </div>
+        </div>
+        <form id="form" method="post" enctype="multipart/form-data">
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <fieldset class="mt-2">
+                        <legend><h3>Grant rights for {{ user.last_name }} {{ user.first_name }}:</h3></legend>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered">
+                                <thead class="table-light">
+                                <tr>
+                                    <th>Tile</th>
+                                    <th class="text-center">Access</th>
+                                    <th class="text-center">Read</th>
+                                    <th class="text-center">Write</th>
+                                    <th class="text-center">Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody id="checkboxes">
+                                {% for key, value in rightsMatrix %}
+                                    <tr>
+                                        <th colspan="5">{{ key }}</th>
+                                    </tr>
+                                    {% for keySub, valueSub in value %}
+                                        <tr>
+                                            <td>{{ keySub }} {% if valueSub.all %}(<b><span class="text-success">Full Access</span></b>){% endif %}
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="checkbox"
+                                                       name="rights[{{ valueSub.special_rights }}][access]"
+                                                       value="1"{% if valueSub.access %} checked{% endif %}{% if valueSub.all %} disabled{% endif %}>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="checkbox"
+                                                       name="rights[{{ valueSub.special_rights }}][read]" value="1"
+                                                       {% if valueSub.read %}checked{% endif %}{% if valueSub.all %} disabled{% endif %}>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="checkbox"
+                                                       name="rights[{{ valueSub.special_rights }}][write]"
+                                                       value="1"{% if valueSub.write %} checked{% endif %}{% if valueSub.all %} disabled{% endif %}>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="checkbox"
+                                                       name="rights[{{ valueSub.special_rights }}][delete]"
+                                                       value="1"{% if valueSub.delete %} checked{% endif %}{% if valueSub.all %} disabled{% endif %}>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+                    <div class="row mb-2">
+                        <div class="col-md-3">
+                            <input type="hidden" name="id" value="{{ user.id }}">
+                            <button type="button" id="submitBtn" data-bs-toggle="modal" data-bs-target="#confirm-submit"
+                                    class="btn btn-success"><i class="fa fa-save"></i> Save
+                            </button>
+                            <a class="btn btn-danger" href="{{ BASE_URL }}/users"><i class="fa fa-times"></i> Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Dialog -->
+    <div class="modal fade" id="confirm-submit" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="color: black">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update User Rights</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to change the permissions for this user?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" id="submit" class="btn btn-success success">Yes</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

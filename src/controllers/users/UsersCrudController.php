@@ -3,8 +3,6 @@
 namespace Controller\users;
 
 use JetBrains\PhpStorm\NoReturn;
-use Repository\gunaRechtenRepo;
-use Repository\linkUsersScholenRepo;
 use Repository\systemRightsRepo;
 use Repository\userRightsRepo;
 use Repository\usersRepo;
@@ -13,13 +11,13 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
 /**
- * Class UsersController
+ * Class UsersCrudController (PHP version 8.4)
  *
- * @author Rudy Mas <rudy.mas@go-next.be>
- * @copyright 2024-2025 GO! Next (https://www.go-next.be)
- * @license Proprietary
- * @version 2025.02.10.0
- * @package Controller\olsc
+ * @author Rudy Mas <rudy.mas@rudymas.be>
+ * @copyright 2025 Rudy Mas (https://rudymas.be)
+ * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
+ * @version 2025.03.13.0
+ * @package Tigress\Users
  */
 class UsersCrudController
 {
@@ -34,42 +32,28 @@ class UsersCrudController
     public function getUsers(array $args): void
     {
         if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = "U heeft niet de juiste rechten om de users pagina te bekijken.";
+            $_SESSION['error'] = "You do not have the appropriate permissions to view the users page.";
             TWIG->redirect('/login');
         }
 
-        $active = ($args['toon'] == 'active') ? 1 : 0;
+        $active = ($args['show'] == 'active') ? 1 : 0;
 
         $users = new usersRepo();
 
-        $sql = "SELECT u.id as id, u.first_name, u.last_name, u.modified, u.email, 
-                        GROUP_CONCAT(DISTINCT s.school ORDER BY s.school SEPARATOR ', ') as school, 
-                        t.team, u.access_level, g.functie
-                FROM users u
-                    LEFT JOIN link_users_scholen l
-                        ON l.user_id = u.id
-                    LEFT JOIN scholen s
-                        ON s.id = l.school_id
-                    LEFT OUTER JOIN teams t
-                        ON t.id = u.team_id
-                    LEFT OUTER JOIN mis_rechten_guna g
-                        ON u.id = g.id_gebruiker AND g.tool = 'funeva'
-                WHERE u.active = {$active}";
         if ($_SESSION['user']['access_level'] < 100) {
-            $sql .= " AND u.access_level < 100";
+            $usersData = $users->getAll(null, "active = {$active} AND access_level < 100");
+        } else {
+            $usersData = $users->getAll(null , "active = {$active}");
         }
-        $sql .= " GROUP BY u.id, u.first_name, u.last_name, u.modified, u.email, t.team, u.access_level, g.functie";
-
-        $usersArray = $users->getByQuery($sql);
 
         $userRights = new userRightsRepo();
         $userRights->loadAll('id');
 
-        foreach ($usersArray as &$user) {
+        foreach ($usersData as &$user) {
             $user->access_level_name = $userRights->get($user->access_level)->name;
         }
 
-        TWIG->render(null, $usersArray, 'DT');
+        TWIG->render(null, $usersData, 'DT');
     }
 
     /**
@@ -80,7 +64,7 @@ class UsersCrudController
     #[NoReturn] public function saveUser(): void
     {
         if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = "U heeft niet de juiste rechten om een gebruiker op te slaan.";
+            $_SESSION['error'] = "You do not have the appropriate permissions to perform this action.";
             TWIG->redirect('/login');
         }
 
@@ -90,29 +74,12 @@ class UsersCrudController
         $user->updateFromPost($_POST);
         $users->save($user);
 
-        $linkUsersScholen = new linkUsersScholenRepo();
-        $sql = "DELETE FROM link_users_scholen WHERE user_id = :user_id";
-        $keyBindings = [
-            ':user_id' => $_POST['id']
-        ];
-        $linkUsersScholen->deleteByQuery($sql, $keyBindings);
-
-        if (isset($_POST['link_user_school']) && is_array($_POST['link_user_school'])) {
-            foreach ($_POST['link_user_school'] as $school_id) {
-                $linkUsersScholen->new();
-                $linkUserSchool = $linkUsersScholen->current();
-                $linkUserSchool->user_id = (int)$_POST['id'];
-                $linkUserSchool->school_id = (int)$school_id;
-            }
-            $linkUsersScholen->saveAll();
-        }
-
         if (isset($_POST['save_default'])) {
             $systemRights = new systemRightsRepo();
             $systemRights->updateRightsUser('home/tiles.json', $_POST['id'], $_POST['access_level']);
         }
 
-        $_SESSION['success'] = "Gebruiker succesvol opgeslagen.";
+        $_SESSION['success'] = "User successful saved.";
         TWIG->redirect('/users');
     }
 
@@ -125,7 +92,7 @@ class UsersCrudController
     #[NoReturn] public function saveUserRights(array $args): void
     {
         if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = "U heeft niet de juiste rechten om een gebruiker zijn rechten aan te passen.";
+            $_SESSION['error'] = "You do not have the appropriate permissions to perform this action.";
             TWIG->redirect('/login');
         }
 
@@ -134,8 +101,8 @@ class UsersCrudController
             'user_id' => $_POST['id'],
         ]);
 
-        if (isset($_POST['rechten'])) {
-            foreach ($_POST['rechten'] as $tool => $data) {
+        if (isset($_POST['rights'])) {
+            foreach ($_POST['rights'] as $tool => $data) {
                 $access = $data['access'] ?? 0;
                 $read = $data['read'] ?? 0;
                 $write = $data['write'] ?? 0;
@@ -154,32 +121,7 @@ class UsersCrudController
             $systemRights->saveAll();
         }
 
-        $gunaRechten = new gunaRechtenRepo();
-
-        if (!empty($_POST['functie_funeva_id'])) {
-            if ($_POST['functie_funeva'] == 0) {
-                $gunaRechten->deleteById($_POST['functie_funeva_id']);
-            } else {
-                $gunaRechten->loadById($_POST['functie_funeva_id']);
-                $gunaRecht = $gunaRechten->current();
-                $gunaRecht->functie = $_POST['functie_funeva'];
-                $gunaRechten->save($systemRight);
-            }
-        } else {
-            if ($_POST['functie_funeva'] == 0) {
-                TWIG->redirect('/users');
-            }
-            $gunaRechten->new();
-            $gunaRecht = $gunaRechten->current();
-
-            $gunaRecht->tool = 'funeva';
-            $gunaRecht->id_instelling = '1';
-            $gunaRecht->id_gebruiker = (int)$_POST['id'];
-            $gunaRecht->functie = (int)$_POST['functie_funeva'];
-            $gunaRechten->save($gunaRecht);
-        }
-
-        $_SESSION['success'] = "Rechten succesvol opgeslagen.";
+        $_SESSION['success'] = "Rights successfully saved.";
         TWIG->redirect('/users');
     }
 
@@ -191,14 +133,14 @@ class UsersCrudController
     #[NoReturn] public function deleteUser(): void
     {
         if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = "U heeft niet de juiste rechten om een gebruiker te verwijderen.";
+            $_SESSION['error'] = "You do not have the appropriate permissions to delete a user.";
             TWIG->redirect('/login');
         }
 
         $users = new usersRepo();
-        $users->deleteById($_POST['VerwijderUser']);
+        $users->deleteById($_POST['DeleteUser']);
 
-        $_SESSION['success'] = "Gebruiker succesvol verwijderd.";
+        $_SESSION['success'] = "User successfully archived.";
         TWIG->redirect('/users');
     }
 
@@ -210,14 +152,14 @@ class UsersCrudController
     #[NoReturn] public function undeleteUser(): void
     {
         if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = "U heeft niet de juiste rechten om een gebruiker te herstellen.";
+            $_SESSION['error'] = "You do not have the appropriate permissions to restore a user.";
             TWIG->redirect('/login');
         }
 
         $users = new usersRepo();
-        $users->undeleteById((int)$_POST['TerugzettenUser']);
+        $users->undeleteById((int)$_POST['RestoreUser']);
 
-        $_SESSION['success'] = "Gebruiker succesvol hersteld.";
+        $_SESSION['success'] = "User successfully restored.";
         TWIG->redirect('/users');
     }
 }
