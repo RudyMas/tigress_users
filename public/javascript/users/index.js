@@ -60,8 +60,8 @@ $(function () {
                         }
                     } else {
                         if (variables.writeAccess) {
-                            output += " <a href='/users/edit/" + (oData.id) + "'><button type='button' class='btn btn-sm btn-warning' data-toggle='tooltip' title='Edit'><i class='fa fa-pencil' aria-hidden='true'></i></button></a>";
-                            output += " <a href='/users/rights/" + (oData.id) + "'><button type='button' class='btn btn-sm btn-secondary' data-toggle='tooltip' title='Edit Rights'><i class='fa fa-gear' aria-hidden='true'></i></button></a>";
+                            output += " <a href='/users/edit/" + (oData.id) + "'><button type='button' class='btn btn-sm btn-success' data-toggle='tooltip' title='Edit'><i class='fa fa-pencil' aria-hidden='true'></i></button></a>";
+                            output += " <a href='/users/rights/" + (oData.id) + "'><button type='button' class='btn btn-sm btn-warning' data-toggle='tooltip' title='Edit Rights'><i class='fa fa-gear' aria-hidden='true'></i></button></a>";
                         }
                         if (variables.deleteAccess) {
                             output += ' <button type="button" class="btn btn-sm btn-danger open-modal" data-toggle="tooltip" title="Archive" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-id="' + oData.id + '"><i class="fa fa-trash" aria-hidden="true"></i></button>';
