@@ -102,23 +102,19 @@ $(function () {
             });
 
             $('#rightsFilter').on('change', function () {
-                table.column(6).search(this.value).draw();
+                let regex = "";
+                if (this.value !== "") {
+                    regex = '^' + this.value + '$';
+                }
+                if (this.value == "-1") {
+                    regex = "";
+                }
+                table.column(6).search(regex, true, false).draw();
             });
+
+            initTooltips();
         },
     });
-
-    table.on('draw', function () {
-        $('[data-toggle="tooltip"]').tooltip({
-            boundary: 'window',
-            trigger: 'hover'
-        });
-    });
-
-    function clearSearch() {
-        document.getElementById('searchBalk').value = "";
-        let table = dataTable.DataTable();
-        table.search('').draw();
-    }
 
     let modalDelete = $('#confirm-delete');
     modalDelete.on('show.bs.modal', function (event) {
