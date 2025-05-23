@@ -56,7 +56,7 @@ $(function () {
                     let output = "<form action='#' method='post' enctype='multipart/form-data'>";
                     if (variables.show === 'archive') {
                         if (variables.deleteAccess) {
-                            output += ' <a data-toggle="tooltip" title="Restore user"><button type="button" class="btn btn-sm btn-success open-modal" data-bs-toggle="modal" data-bs-target="#confirm-undelete" data-id="' + oData.id + '"><i class="fa-solid fa-recycle" aria-hidden="true"></i></button></a>';
+                            output += ' <a data-toggle="tooltip" title="Restore user"><button type="button" class="btn btn-sm btn-success open-modal" data-bs-toggle="modal" data-bs-target="#confirm-undelete" data-id="' + oData.id + '"><i class="fa-solid fa-undo" aria-hidden="true"></i></button></a>';
                         }
                     } else {
                         if (variables.writeAccess) {
@@ -64,7 +64,7 @@ $(function () {
                             output += " <a href='/users/rights/" + (oData.id) + "'><button type='button' class='btn btn-sm btn-warning' data-toggle='tooltip' title='Edit Rights'><i class='fa fa-gear' aria-hidden='true'></i></button></a>";
                         }
                         if (variables.deleteAccess) {
-                            output += ' <button type="button" class="btn btn-sm btn-danger open-modal" data-toggle="tooltip" title="Archive" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-id="' + oData.id + '"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                            output += ' <button type="button" class="btn btn-sm btn-danger open-modal" data-toggle="tooltip" title="Archive" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-id="' + oData.id + '"><i class="fa fa-archive" aria-hidden="true"></i></button>';
                         }
                     }
                     output += "</form>";
