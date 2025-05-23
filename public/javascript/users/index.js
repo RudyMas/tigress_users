@@ -111,9 +111,12 @@ $(function () {
                 }
                 table.column(6).search(regex, true, false).draw();
             });
-
-            initTooltips();
         },
+    });
+
+    // Tooltip initialiseren bij elke redraw
+    table.on('draw', function () {
+        initTooltips();
     });
 
     let modalDelete = $('#confirm-delete');
