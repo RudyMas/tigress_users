@@ -34,7 +34,7 @@ $(function () {
             },
             {
                 title: "Last Login",
-                data: "modified",
+                data: "last_login",
                 className: "text-nowrap",
             },
             {
