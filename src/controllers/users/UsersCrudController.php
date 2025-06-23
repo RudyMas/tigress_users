@@ -6,6 +6,7 @@ use JetBrains\PhpStorm\NoReturn;
 use Repository\systemRightsRepo;
 use Repository\userRightsRepo;
 use Repository\usersRepo;
+use Tigress\Controller;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -16,10 +17,10 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.03.13.0
+ * @version 2025.06.23.0
  * @package Tigress\Users
  */
-class UsersCrudController
+class UsersCrudController extends Controller
 {
     /**
      * Get all active users
@@ -32,8 +33,8 @@ class UsersCrudController
     public function getUsers(array $args): void
     {
         if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = "You do not have the appropriate permissions to view the users page.";
-            TWIG->redirect('/login');
+            TWIG->render(null, [], 'DT');
+            exit;
         }
 
         $active = ($args['show'] == 'active') ? 1 : 0;
@@ -63,10 +64,7 @@ class UsersCrudController
      */
     #[NoReturn] public function saveUser(): void
     {
-        if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = "You do not have the appropriate permissions to perform this action.";
-            TWIG->redirect('/login');
-        }
+        $this->checkRights('write');
 
         $users = new usersRepo();
         $users->loadById($_POST['id']);
@@ -79,7 +77,14 @@ class UsersCrudController
             $systemRights->updateRightsUser('home/tiles.json', $_POST['id'], $_POST['access_level']);
         }
 
-        $_SESSION['success'] = "User successful saved.";
+        $_SESSION['success'] = match (substr(CONFIG->website->html_lang, 0, 2)) {
+            'nl' => "Gebruiker succesvol opgeslagen.",
+            'fr' => "Utilisateur enregistré avec succès.",
+            'de' => "Benutzer erfolgreich gespeichert.",
+            'es' => "Usuario guardado con éxito.",
+            'it' => "Utente salvato con successo.",
+            default => "User successfully saved."
+        };
         TWIG->redirect('/users');
     }
 
@@ -91,10 +96,7 @@ class UsersCrudController
      */
     #[NoReturn] public function saveUserRights(array $args): void
     {
-        if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = "You do not have the appropriate permissions to perform this action.";
-            TWIG->redirect('/login');
-        }
+        $this->checkRights('write');
 
         $systemRights = new systemRightsRepo();
         $systemRights->deleteByPrimaryKey([
@@ -121,7 +123,14 @@ class UsersCrudController
             $systemRights->saveAll();
         }
 
-        $_SESSION['success'] = "Rights successfully saved.";
+        $_SESSION['success'] = match (substr(CONFIG->website->html_lang, 0, 2)) {
+            'nl' => "Rechten succesvol opgeslagen.",
+            'fr' => "Droits enregistrés avec succès.",
+            'de' => "Rechte erfolgreich gespeichert.",
+            'es' => "Derechos guardados con éxito.",
+            'it' => "Diritti salvati con successo.",
+            default => "Rights successfully saved."
+        };
         TWIG->redirect('/users');
     }
 
@@ -132,15 +141,19 @@ class UsersCrudController
      */
     #[NoReturn] public function deleteUser(): void
     {
-        if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = "You do not have the appropriate permissions to delete a user.";
-            TWIG->redirect('/login');
-        }
+        $this->checkRights('delete');
 
         $users = new usersRepo();
         $users->deleteById($_POST['DeleteUser']);
 
-        $_SESSION['success'] = "User successfully archived.";
+        $_SESSION['success'] = match (substr(CONFIG->website->html_lang, 0, 2)) {
+            'nl' => "Gebruiker succesvol gearchiveerd.",
+            'fr' => "Utilisateur archivé avec succès.",
+            'de' => "Benutzer erfolgreich archiviert.",
+            'es' => "Usuario archivado con éxito.",
+            'it' => "Utente archiviato con successo.",
+            default => "User successfully archived."
+        };
         TWIG->redirect('/users');
     }
 
@@ -151,15 +164,19 @@ class UsersCrudController
      */
     #[NoReturn] public function undeleteUser(): void
     {
-        if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = "You do not have the appropriate permissions to restore a user.";
-            TWIG->redirect('/login');
-        }
+        $this->checkRights('delete');
 
         $users = new usersRepo();
         $users->undeleteById((int)$_POST['RestoreUser']);
 
-        $_SESSION['success'] = "User successfully restored.";
+        $_SESSION['success'] = match (substr(CONFIG->website->html_lang, 0, 2)) {
+            'nl' => "Gebruiker succesvol hersteld.",
+            'fr' => "Utilisateur restauré avec succès.",
+            'de' => "Benutzer erfolgreich wiederhergestellt.",
+            'es' => "Usuario restaurado con éxito.",
+            'it' => "Utente ripristinato con successo.",
+            default => "User successfully restored."
+        };
         TWIG->redirect('/users');
     }
 }

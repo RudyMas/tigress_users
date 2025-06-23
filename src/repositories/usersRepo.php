@@ -14,7 +14,7 @@ class usersRepo extends Repository
         $this->dbName = 'default';
         $this->table = 'users';
         $this->primaryKey = ['id'];
-        $this->model = 'user';
+        $this->model = 'DefaultModel';
         $this->autoload = true;
         $this->softDelete = true;
         parent::__construct();

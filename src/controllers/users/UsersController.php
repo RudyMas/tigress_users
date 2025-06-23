@@ -5,6 +5,7 @@ namespace Controller\users;
 use Repository\systemRightsRepo;
 use Repository\userRightsRepo;
 use Repository\usersRepo;
+use Tigress\Controller;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -15,10 +16,10 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.03.13.0
+ * @version 2025.06.23.0
  * @package Tigress\Users
  */
-class UsersController
+class UsersController extends Controller
 {
     /**
      * @throws LoaderError
@@ -37,13 +38,8 @@ class UsersController
      */
     public function index(): void
     {
-        if (RIGHTS->checkRights('read') === false) {
-            $_SESSION['error'] = "You do not have the appropriate permissions to view the users page.";
-            TWIG->redirect('/login');
-        }
-
-        TWIG->render('users/index.twig', [
-        ]);
+        $this->checkRights('read');
+        TWIG->render('users/index.twig');
     }
 
     /**
@@ -57,19 +53,23 @@ class UsersController
      */
     public function editUser(array $args): void
     {
-        if (RIGHTS->checkRights('read') === false) {
-            $_SESSION['error'] = "You do not have the appropriate permissions to view the users page.";
-            TWIG->redirect('/login');
-        }
-
         SECURITY->checkAccess();
         SECURITY->checkReferer(['/users']);
+
+        $this->checkRights('edit');
 
         $users = new usersRepo();
         $users->loadById($args['id']);
 
         if ($users->isEmpty()) {
-            $_SESSION['error'] = "We couldn't find the user's information.";
+            $_SESSION['error'] = match (substr(CONFIG->website->html_lang, 0, 2)) {
+                'nl' => "We konden de gebruikersinformatie niet vinden.",
+                'fr' => "Nous n'avons pas pu trouver les informations de l'utilisateur.",
+                'de' => "Wir konnten die Benutzerinformationen nicht finden.",
+                'es' => "No pudimos encontrar la información del usuario.",
+                'it' => "Non siamo riusciti a trovare le informazioni dell'utente.",
+                default => "We couldn't find the user's information."
+            };
             TWIG->redirect('/users');
         }
 
@@ -88,13 +88,10 @@ class UsersController
      */
     public function editUserRights(array $args): void
     {
-        if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = "You do not have the appropriate permissions to view the users rights page.";
-            TWIG->redirect('/login');
-        }
-
         SECURITY->checkAccess();
         SECURITY->checkReferer(['/users']);
+
+        $this->checkRights('edit');
 
         $users = new usersRepo();
         $users->loadById($args['id']);

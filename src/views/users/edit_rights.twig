@@ -1,4 +1,108 @@
 {% extends 'datatable.twig' %}
+{% set translations_er_250623 = {
+    'nl': {
+        'access': 'Toegang',
+        'cancel': 'Annuleren',
+        'delete': 'Verwijderen',
+        'edit_user_rights': 'Gebruikersrechten bewerken',
+        'full_access': 'Volledige toegang',
+        'grant_rights_for': 'Rechten toekennen voor',
+        'no': 'Nee',
+        'read': 'Lezen',
+        'save': 'Opslaan',
+        'tile': 'Tegel',
+        'update_user_rights': 'Gebruikersrechten bijwerken',
+        'update_user_rights_message': 'Weet u zeker dat u de gebruikersrechten wilt bijwerken?',
+        'users': 'Gebruikers',
+        'write': 'Schrijven',
+        'yes': 'Ja',
+    },
+    'fr': {
+        'access': 'Accès',
+        'cancel': 'Annuler',
+        'delete': 'Supprimer',
+        'edit_user_rights': 'Modifier les droits de l\'utilisateur',
+        'full_access': 'Accès complet',
+        'grant_rights_for': 'Accorder des droits pour',
+        'no': 'Non',
+        'read': 'Lire',
+        'save': 'Enregistrer',
+        'tile': 'Tuile',
+        'update_user_rights': 'Mettre à jour les droits de l\'utilisateur',
+        'update_user_rights_message': 'Êtes-vous sûr de vouloir mettre à jour les droits de l\'utilisateur ?',
+        'users': 'Utilisateurs',
+        'write': 'Écrire',
+        'yes': 'Oui',
+    },
+    'de': {
+        'access': 'Zugriff',
+        'cancel': 'Abbrechen',
+        'delete': 'Löschen',
+        'edit_user_rights': 'Benutzerrechte bearbeiten',
+        'full_access': 'Vollzugriff',
+        'grant_rights_for': 'Rechte gewähren für',
+        'no': 'Nein',
+        'read': 'Lesen',
+        'save': 'Speichern',
+        'tile': 'Kachel',
+        'update_user_rights': 'Benutzerrechte aktualisieren',
+        'update_user_rights_message': 'Sind Sie sicher, dass Sie die Benutzerrechte aktualisieren möchten?',
+        'users': 'Benutzer',
+        'write': 'Schreiben',
+        'yes': 'Ja',
+    },
+    'es': {
+        'access': 'Acceso',
+        'cancel': 'Cancelar',
+        'delete': 'Eliminar',
+        'edit_user_rights': 'Editar derechos de usuario',
+        'full_access': 'Acceso completo',
+        'grant_rights_for': 'Conceder derechos para',
+        'no': 'No',
+        'read': 'Leer',
+        'save': 'Guardar',
+        'tile': 'Mosaico',
+        'update_user_rights': 'Actualizar derechos de usuario',
+        'update_user_rights_message': '¿Está seguro de que desea actualizar los derechos de usuario?',
+        'users': 'Usuarios',
+        'write': 'Escribir',
+        'yes': 'Sí',
+    },
+    'it': {
+        'access': 'Accesso',
+        'cancel': 'Annulla',
+        'delete': 'Elimina',
+        'edit_user_rights': 'Modifica diritti utente',
+        'full_access': 'Accesso completo',
+        'grant_rights_for': 'Concedi diritti per',
+        'no': 'No',
+        'read': 'Leggi',
+        'save': 'Salva',
+        'tile': 'Tessera',
+        'update_user_rights': 'Aggiorna diritti utente',
+        'update_user_rights_message': 'Sei sicuro di voler aggiornare i diritti utente?',
+        'users': 'Utenti',
+        'write': 'Scrivi',
+        'yes': 'Sì',
+    },
+    'en': {
+        'access': 'Access',
+        'cancel': 'Cancel',
+        'delete': 'Delete',
+        'edit_user_rights': 'Edit User Rights',
+        'full_access': 'Full Access',
+        'grant_rights_for': 'Grant rights for',
+        'no': 'No',
+        'read': 'Read',
+        'save': 'Save',
+        'tile': 'Tile',
+        'update_user_rights': 'Update User Rights',
+        'update_user_rights_message': 'Are you sure you want to update the user rights?',
+        'users': 'Users',
+        'write': 'Write',
+        'yes': 'Yes',
+    }
+} %}
 {% block css %}
     {{ parent() }}
     <link href="/vendor/tigress/users/public/css/users/edit_rights.css" rel="stylesheet">
@@ -7,15 +111,15 @@
     {{ parent() }}
     <script src="/vendor/tigress/users/public/javascript/users/edit_rights.js"></script>
 {% endblock %}
-{% block title %}Edit User Rights{% endblock %}
+{% block title %}{{ trans('edit_user_rights', translations_er_250623) }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/users">Users</a></li>
-                    <li class="breadcrumb-item active">Edit User Rights</li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/users">{{ trans('users', translations_er_250623) }}</a></li>
+                    <li class="breadcrumb-item active">{{ trans('edit_user_rights', translations_er_250623) }}</li>
                 </ol>
             </nav>
         </div>
@@ -25,7 +129,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-md-9">
-                <h3>User Rights</h3>
+                <h3>{{ trans('edit_user_rights', translations_er_250623) }}</h3>
             </div>
             <div class="col-md-3 text-end">
             </div>
@@ -34,16 +138,16 @@
             <div class="row mb-2">
                 <div class="col-md-12">
                     <fieldset class="mt-2">
-                        <legend><h3>Grant rights for {{ user.last_name }} {{ user.first_name }}:</h3></legend>
+                        <legend><h3>{{ trans('grant_rights_for', translations_er_250623) }} {{ user.last_name }} {{ user.first_name }}:</h3></legend>
                         <div class="table-responsive">
                             <table class="table table-sm table-bordered">
                                 <thead class="table-light">
                                 <tr>
-                                    <th>Tile</th>
-                                    <th class="text-center">Access</th>
-                                    <th class="text-center">Read</th>
-                                    <th class="text-center">Write</th>
-                                    <th class="text-center">Delete</th>
+                                    <th>{{ trans('tile', translations_er_250623) }}</th>
+                                    <th class="text-center">{{ trans('access', translations_er_250623) }}</th>
+                                    <th class="text-center">{{ trans('read', translations_er_250623) }}</th>
+                                    <th class="text-center">{{ trans('write', translations_er_250623) }}</th>
+                                    <th class="text-center">{{ trans('delete', translations_er_250623) }}</th>
                                 </tr>
                                 </thead>
                                 <tbody id="checkboxes">
@@ -53,7 +157,7 @@
                                     </tr>
                                     {% for keySub, valueSub in value %}
                                         <tr>
-                                            <td>{{ keySub }} {% if valueSub.all %}(<b><span class="text-success">Full Access</span></b>){% endif %}
+                                            <td>{{ keySub }} {% if valueSub.all %}(<b><span class="text-success">{{ trans('full_access', translations_er_250623) }}</span></b>){% endif %}
                                             </td>
                                             <td class="text-center">
                                                 <input type="checkbox"
@@ -88,9 +192,9 @@
                 <div class="col-md-3">
                     <input type="hidden" name="id" value="{{ user.id }}">
                     <button type="button" id="submitBtn" data-bs-toggle="modal" data-bs-target="#confirm-submit"
-                            class="btn btn-success"><i class="fa fa-save"></i> Save
+                            class="btn btn-success"><i class="fa fa-save"></i> {{ trans('save', translations_er_250623) }}
                     </button>
-                    <a class="btn btn-danger" href="{{ BASE_URL }}/users"><i class="fa fa-times"></i> Cancel</a>
+                    <a class="btn btn-danger" href="{{ BASE_URL }}/users"><i class="fa fa-times"></i> {{ trans('cancel', translations_er_250623) }}</a>
                 </div>
             </div>
         </form>
@@ -101,15 +205,15 @@
         <div class="modal-dialog" style="color: black">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Update User Rights</h5>
+                    <h5 class="modal-title">{{ trans('update_user_rights', translations_er_250623) }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to change the permissions for this user?</p>
+                    <p>{{ trans('update_user_rights_message', translations_er_250623) }}</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" id="submit" class="btn btn-success success">Yes</a>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                    <a href="#" id="submit" class="btn btn-success success">{{ trans('yes', translations_er_250623) }}</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', translations_er_250623) }}</button>
                 </div>
             </div>
         </div>

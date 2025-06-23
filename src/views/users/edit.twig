@@ -1,17 +1,115 @@
 {% extends 'base.twig' %}
+{% set translations_e_250623 = {
+    'nl': {
+        'access_level': 'Toegangsniveau',
+        'email': 'E-mail',
+        'family_name': 'Achternaam',
+        'first_name': 'Voornaam',
+        'cancel': 'Annuleren',
+        'edit_user_information': 'Gebruikersinformatie bewerken',
+        'last_login': 'Laatst ingelogd',
+        'no': 'Nee',
+        'save': 'Opslaan',
+        'set_default_permissions': 'Standaard rechten instellen',
+        'update_user': 'Gebruiker bijwerken',
+        'update_user_message': 'Weet u zeker dat u de gebruiker wilt wijzigen?',
+        'users': 'Gebruikers',
+        'yes': 'Ja',
+    },
+    'fr': {
+        'access_level': 'Niveau d\'accès',
+        'email': 'E-mail',
+        'family_name': 'Nom de famille',
+        'first_name': 'Prénom',
+        'cancel': 'Annuler',
+        'edit_user_information': 'Modifier les informations de l\'utilisateur',
+        'last_login': 'Dernière connexion',
+        'no': 'Non',
+        'save': 'Enregistrer',
+        'set_default_permissions': 'Définir les permissions par défaut',
+        'update_user': 'Mettre à jour l\'utilisateur',
+        'update_user_message': 'Êtes-vous sûr de vouloir modifier l\'utilisateur ?',
+        'users': 'Utilisateurs',
+        'yes': 'Oui',
+    },
+    'de': {
+        'access_level': 'Zugriffslevel',
+        'email': 'E-Mail',
+        'family_name': 'Nachname',
+        'first_name': 'Vorname',
+        'cancel': 'Abbrechen',
+        'edit_user_information': 'Benutzerinformationen bearbeiten',
+        'last_login': 'Letzte Anmeldung',
+        'no': 'Nein',
+        'save': 'Speichern',
+        'set_default_permissions': 'Standardrechte festlegen',
+        'update_user': 'Benutzer aktualisieren',
+        'update_user_message': 'Sind Sie sicher, dass Sie den Benutzer ändern möchten?',
+        'users': 'Benutzer',
+        'yes': 'Ja',
+    },
+    'es': {
+        'access_level': 'Nivel de acceso',
+        'email': 'Correo electrónico',
+        'family_name': 'Apellido',
+        'first_name': 'Nombre',
+        'cancel': 'Cancelar',
+        'edit_user_information': 'Editar información del usuario',
+        'last_login': 'Último inicio de sesión',
+        'no': 'No',
+        'save': 'Guardar',
+        'set_default_permissions': 'Establecer permisos predeterminados',
+        'update_user': 'Actualizar usuario',
+        'update_user_message': '¿Está seguro de que desea modificar el usuario?',
+        'users': 'Usuarios',
+        'yes': 'Sí',
+    },
+    'it': {
+        'access_level': 'Livello di accesso',
+        'email': 'E-mail',
+        'family_name': 'Cognome',
+        'first_name': 'Nome',
+        'cancel': 'Annulla',
+        'edit_user_information': 'Modifica informazioni utente',
+        'last_login': 'Ultimo accesso',
+        'no': 'No',
+        'save': 'Salva',
+        'set_default_permissions': 'Imposta permessi predefiniti',
+        'update_user': 'Aggiorna utente',
+        'update_user_message': 'Sei sicuro di voler modificare l\'utente?',
+        'users': 'Utenti',
+        'yes': 'Sì',
+    },
+    'en': {
+        'access_level': 'Access Level',
+        'email': 'E-mail',
+        'family_name': 'Family Name',
+        'first_name': 'First Name',
+        'cancel': 'Cancel',
+        'edit_user_information': 'Edit User Information',
+        'last_login': 'Last Login',
+        'no': 'No',
+        'save': 'Save',
+        'set_default_permissions': 'Set Default Permissions',
+        'update_user': 'Update User',
+        'update_user_message': 'Are you sure you want to modify the user?',
+        'users': 'Users',
+        'yes': 'Yes',
+    }
+} %}
 {% block js %}
     {{ parent() }}
     <script src="{{ BASE_URL }}/vendor/tigress/users/public/javascript/users/edit.js"></script>
 {% endblock %}
-{% block title %}Edit User Information{% endblock %}
+{% block title %}{{ trans('edit_user_information', translations_e_250623) }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/users">Users</a></li>
-                    <li class="breadcrumb-item active">Edit User Information</li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/users">{{ trans('users', translations_e_250623) }}</a></li>
+                    <li class="breadcrumb-item active">{{ trans('edit_user_information', translations_e_250623) }}</li>
                 </ol>
             </nav>
         </div>
@@ -21,7 +119,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-md-9">
-                <h3>Edit User Information</h3>
+                <h3>{{ trans('edit_user_information', translations_e_250623) }}</h3>
             </div>
             <div class="col-md-3 text-end">
             </div>
@@ -33,31 +131,31 @@
                         <input type="hidden" id="id" name="id" value="{{ user.id }}">
                         <div class="row mb-2">
                             <div class="col-md-6">
-                                <label for="last_name" class="form-label"><b>Family Name</b></label>
+                                <label for="last_name" class="form-label"><b>{{ trans('family_name', translations_e_250623) }}</b></label>
                                 <input class="form-control" id="last_name" name="last_name" type="text"
-                                       value="{{ user.last_name }}">
+                                       value="{{ user.last_name }}" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="first_name" class="form-label"><b>Firstname</b></label>
+                                <label for="first_name" class="form-label"><b>{{ trans('first_name', translations_e_250623) }}</b></label>
                                 <input class="form-control" id="first_name" name="first_name" type="text"
-                                       value="{{ user.first_name }}">
+                                       value="{{ user.first_name }}" required>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-3">
-                                <label for="last_login" class="form-label"><b>Last Login</b></label>
+                                <label for="last_login" class="form-label"><b>{{ trans('last_login', translations_e_250623) }}</b></label>
                                 <input class="form-control" id="last_login" name="last_login" type="datetime-local"
                                        value="{{ user.last_login }}" disabled>
                             </div>
                             <div class="col-md-9">
-                                <label for="email" class="form-label"><b>E-mail</b></label>
+                                <label for="email" class="form-label"><b>{{ trans('email', translations_e_250623) }}</b></label>
                                 <input class="form-control" id="email" name="email" type="text"
                                        value="{{ user.email }}">
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-xl-4 col-md-6">
-                                <label for="access_level" class="form-label"><b>Access Level</b></label>
+                                <label for="access_level" class="form-label"><b>{{ trans('access_level', translations_e_250623) }}</b></label>
                                 <select class="form-select" name="access_level" id="access_level" required>
                                     {{ selectOptiesRights|raw }}
                                 </select>
@@ -69,7 +167,7 @@
                                 <label for="save_default" class="slider-container">
                                     <input type="checkbox" id="save_default" name="save_default"
                                            class="slider-checkbox" value="1">
-                                    <span class="slider-label"></span> <b>Set default permissions</b>
+                                    <span class="slider-label"></span> <b>{{ trans('set_default_permissions', translations_e_250623) }}</b>
                                 </label>
                             </div>
                         </div>
@@ -80,9 +178,10 @@
                 <div class="col-md-3">
                     <input type="hidden" name="action" value="Update">
                     <button type="button" id="submitBtn" data-bs-toggle="modal" data-bs-target="#confirm-submit"
-                            class="btn btn-success"><i class="fa fa-save"></i> Save
+                            class="btn btn-success"><i class="fa fa-save"></i> {{ trans('save', translations_e_250623) }}
                     </button>
-                    <a class="btn btn-danger" href="{{ BASE_URL }}/users"><i class="fa fa-times"></i> Cancel</a>
+                    <a class="btn btn-danger" href="{{ BASE_URL }}/users"><i class="fa fa-times"></i> {{ trans('cancel',
+                        translations_e_250623) }}</a>
                 </div>
             </div>
         </form>
@@ -93,15 +192,15 @@
         <div class="modal-dialog" style="color: black">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Update User</h5>
+                    <h5 class="modal-title">{{ trans('update_user', translations_e_250623) }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to modify the user?</p>
+                    <p>{{ trans('update_user_message', translations_e_250623) }}</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" id="submit" class="btn btn-success">Yes</a>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                    <a href="#" id="submit" class="btn btn-success">{{ trans('yes', translations_e_250623) }}</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', translations_e_250623) }}</button>
                 </div>
             </div>
         </div>

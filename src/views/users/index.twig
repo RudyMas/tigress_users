@@ -1,23 +1,109 @@
 {% extends 'datatable.twig' %}
+{% set translations_i_250623 = {
+    'nl': {
+        'access_level': 'Toegangsniveau',
+        'all': 'Alle',
+        'archive': 'Archief',
+        'close': 'Sluiten',
+        'deleting_user': 'Gebruiker verwijderen!',
+        'deleting_user_message': 'Weet u zeker dat u de gebruiker wilt verwijderen?',
+        'no': 'Nee',
+        'restoring_user': 'Gebruiker herstellen!',
+        'restoring_user_message': 'Weet u zeker dat u de gebruiker wilt herstellen?',
+        'user_accounts': 'Gebruikersaccounts',
+        'users': 'Gebruikers',
+        'yes': 'Ja',
+    },
+    'fr': {
+        'access_level': 'Niveau d\'accès',
+        'all': 'Tous',
+        'archive': 'Archive',
+        'close': 'Fermer',
+        'deleting_user': 'Suppression de l\'utilisateur !',
+        'deleting_user_message': 'Êtes-vous sûr de vouloir supprimer l\'utilisateur ?',
+        'no': 'Non',
+        'restoring_user': 'Restauration de l\'utilisateur !',
+        'restoring_user_message': 'Êtes-vous sûr de vouloir restaurer l\'utilisateur ?',
+        'user_accounts': 'Comptes utilisateurs',
+        'users': 'Utilisateurs',
+        'yes': 'Oui',
+    },
+    'de': {
+        'access_level': 'Zugriffslevel',
+        'all': 'Alle',
+        'archive': 'Archiv',
+        'close': 'Schließen',
+        'deleting_user': 'Benutzer löschen!',
+        'deleting_user_message': 'Sind Sie sicher, dass Sie den Benutzer löschen möchten?',
+        'no': 'Nein',
+        'restoring_user': 'Benutzer wiederherstellen!',
+        'restoring_user_message': 'Sind Sie sicher, dass Sie den Benutzer wiederherstellen möchten?',
+        'user_accounts': 'Benutzerkonten',
+        'users': 'Benutzer',
+        'yes': 'Ja',
+    },
+    'es': {
+        'access_level': 'Nivel de acceso',
+        'all': 'Todos',
+        'archive': 'Archivo',
+        'close': 'Cerrar',
+        'deleting_user': '¡Eliminando usuario!',
+        'deleting_user_message': '¿Está seguro de que desea eliminar el usuario?',
+        'no': 'No',
+        'restoring_user': '¡Restaurando usuario!',
+        'restoring_user_message': '¿Está seguro de que desea restaurar el usuario?',
+        'user_accounts': 'Cuentas de usuario',
+        'users': 'Usuarios',
+        'yes': 'Sí',
+    },
+    'it': {
+        'access_level': 'Livello di accesso',
+        'all': 'Tutti',
+        'archive': 'Archivio',
+        'close': 'Chiudi',
+        'deleting_user': 'Eliminazione utente in corso!',
+        'deleting_user_message': 'Sei sicuro di voler eliminare l\'utente?',
+        'no': 'No',
+        'restoring_user': 'Ripristino utente in corso!',
+        'restoring_user_message': 'Sei sicuro di voler ripristinare l\'utente?',
+        'user_accounts': 'Account utente',
+        'users': 'Utenti',
+        'yes': 'Sì',
+    },
+    'en': {
+        'access_level': 'Access Level',
+        'all': 'All',
+        'archive': 'Archive',
+        'close': 'Close',
+        'deleting_user': 'Deleting user!',
+        'deleting_user_message': 'Are you sure you want to delete the user?',
+        'no': 'No',
+        'restoring_user': 'Restoring user!',
+        'restoring_user_message': 'Are you sure you want to restore the user?',
+        'user_accounts': 'User accounts',
+        'users': 'Users',
+        'yes': 'Yes',
+    }
+} %}
 {% block js %}
     {{ parent() }}
     <script>
         let variables = {
-            writeAccess: '{{ rights.write }}',
-            deleteAccess: '{{ rights.delete }}',
+            write: '{{ rights.write }}',
+            delete: '{{ rights.delete }}',
             show: '{{ _GET.show }}',
         }
     </script>
     <script src="{{ BASE_URL }}/vendor/tigress/users/public/javascript/users/index.js"></script>
 {% endblock %}
-{% block title %}Users{% endblock %}
+{% block title %}{{ trans('users', translations_i_250623) }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item active">Users</li>
+                    <li class="breadcrumb-item active">{{ trans('users', translations_i_250623) }}</li>
                 </ol>
             </nav>
         </div>
@@ -25,37 +111,21 @@
 {% endblock %}
 {% block content %}
     <div class="container">
-        <div class="row mb-2 break-out">
+        <div class="row mb-2">
             <div class="col-md-9">
-                <h3>User accounts {% if _GET.show == 'archive' %}(archive){% endif %}</h3>
+                <h3>{{ trans('user_accounts', translations_i_250623) }}</h3>
             </div>
             <div class="col-md-3 text-end">
                 {% if _GET.show == 'archive' %}
-                    <a href="{{ BASE_URL }}/users" class="btn btn-warning mb-1"><i class="fa-solid fa-archive"></i> Archive</a>
+                    <a href="{{ BASE_URL }}/users" class="btn btn-warning mb-1"><i class="fa-solid fa-archive"></i> {{ trans('archive', translations_i_250623) }}</a>
                 {% else %}
-                    <a href="{{ BASE_URL }}/users?show=archive" class="btn btn-outline-warning mb-1"><i class="fa-solid fa-archive"></i> Archive</a>
+                    <a href="{{ BASE_URL }}/users?show=archive" class="btn btn-outline-warning mb-1"><i class="fa-solid fa-archive"></i> {{ trans('archive', translations_i_250623) }}</a>
                 {% endif %}
             </div>
         </div>
-        <div class="row mb-2 break-out">
+        <div class="row mb-2">
             <div class="col-md-12">
                 <fieldset class="mt-2">
-                    <div class="row mb-2">
-                        <div class="col-md-3 mb-3">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label class="w-100">
-                                <b>Access Level:</b>
-                                <select id="rightsFilter" class="form-select">
-                                    <option value="-1">All</option>
-                                </select>
-                            </label>
-                        </div>
-                    </div>
                     <div class="row mb-2">
                         <div class="col-md-12">
                             <div class="table-responsive">
@@ -75,17 +145,15 @@
             <div class="modal-dialog" style="color: black">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Deleting user!</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title">{{ trans('deleting_user', translations_i_250623) }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', translations_i_250623) }}"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to delete the user?</p>
+                        <p>{{ trans('deleting_user_message', translations_i_250623) }}</p>
                     </div>
                     <div class="modal-footer">
-                        <button id="DeleteUser" name="DeleteUser" value="" type="submit"
-                                class="btn btn-success">Yes
-                        </button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                        <button id="DeleteUser" name="DeleteUser" value="" type="submit" class="btn btn-success">{{ trans('yes', translations_i_250623) }}</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', translations_i_250623) }}</button>
                     </div>
                 </div>
             </div>
@@ -98,17 +166,15 @@
             <div class="modal-dialog" style="color: black">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Restoring user!</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title">{{ trans('restoring_user', translations_i_250623) }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', translations_i_250623) }}"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to restore the user?</p>
+                        <p>{{ trans('restoring_user_message', translations_i_250623) }}</p>
                     </div>
                     <div class="modal-footer">
-                        <button id="RestoreUser" name="RestoreUser" value="" type="submit"
-                                class="btn btn-success">Yes
-                        </button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                        <button id="RestoreUser" name="RestoreUser" value="" type="submit" class="btn btn-success">{{ trans('yes', translations_i_250623) }}</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', translations_i_250623) }}</button>
                     </div>
                 </div>
             </div>

@@ -15,19 +15,13 @@
       "request": "POST",
       "path": "/users/delete",
       "controller": "users\\UsersCrudController",
-      "method": "deleteUser",
-      "level_rights": [
-        100
-      ]
+      "method": "deleteUser"
     },
     {
       "request": "POST",
       "path": "/users/undelete",
       "controller": "users\\UsersCrudController",
-      "method": "undeleteUser",
-      "level_rights": [
-        100
-      ]
+      "method": "undeleteUser"
     },
     {
       "request": "GET",
@@ -39,10 +33,7 @@
       "request": "POST",
       "path": "/users/edit/{id}",
       "controller": "users\\UsersCrudController",
-      "method": "saveUser",
-      "level_rights": [
-        100
-      ]
+      "method": "saveUser"
     },
     {
       "request": "GET",
@@ -60,10 +51,7 @@
       "request": "POST",
       "path": "/users/rights/{id}",
       "controller": "users\\UsersCrudController",
-      "method": "saveUserRights",
-      "level_rights": [
-        100
-      ]
+      "method": "saveUserRights"
     }
   ]
 }

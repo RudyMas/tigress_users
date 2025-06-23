@@ -20,9 +20,8 @@
   },
   "autoload": {
     "psr-4": {
-      "OLSC\\": "src/",
+      "Tigress\\": "src/",
       "Controller\\": "src/controllers",
-      "Model\\": "src/models",
       "Repository\\": "src/repositories"
     }
   }

@@ -14,7 +14,7 @@ class userRightsRepo extends Repository
         $this->dbName = 'default';
         $this->table = 'users_rights';
         $this->primaryKey = ['id'];
-        $this->model = 'usersRight';
+        $this->model = 'DefaultModel';
         $this->autoload = true;
         $this->softDelete = true;
         parent::__construct();
