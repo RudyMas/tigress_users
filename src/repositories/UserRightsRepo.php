@@ -7,7 +7,7 @@ use Tigress\Repository;
 /**
  * Repository for user rights table
  */
-class userRightsRepo extends Repository
+class UserRightsRepo extends Repository
 {
     public function __construct()
     {

@@ -7,7 +7,7 @@ use Tigress\Repository;
 /**
  * Repository for users
  */
-class usersRepo extends Repository
+class UsersRepo extends Repository
 {
     public function __construct()
     {
