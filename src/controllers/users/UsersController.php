@@ -2,9 +2,9 @@
 
 namespace Controller\users;
 
-use Repository\systemRightsRepo;
-use Repository\userRightsRepo;
-use Repository\usersRepo;
+use Repository\SystemRightsRepo;
+use Repository\UserRightsRepo;
+use Repository\UsersRepo;
 use Tigress\Controller;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -16,7 +16,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.23.0
+ * @version 2025.06.23.1
  * @package Tigress\Users
  */
 class UsersController extends Controller
@@ -58,7 +58,7 @@ class UsersController extends Controller
 
         $this->checkRights('edit');
 
-        $users = new usersRepo();
+        $users = new UsersRepo();
         $users->loadById($args['id']);
 
         if ($users->isEmpty()) {
@@ -75,7 +75,7 @@ class UsersController extends Controller
 
         TWIG->render('users/edit.twig', [
             'user' => $users->current(),
-            'selectOptiesRights' => new userRightsRepo()->getSelectOptions($users->current()->access_level, false),
+            'selectOptiesRights' => new UserRightsRepo()->getSelectOptions($users->current()->access_level, false),
         ]);
     }
 
@@ -93,11 +93,11 @@ class UsersController extends Controller
 
         $this->checkRights('edit');
 
-        $users = new usersRepo();
+        $users = new UsersRepo();
         $users->loadById($args['id']);
         $user = $users->current();
 
-        $systemRights = new systemRightsRepo();
+        $systemRights = new SystemRightsRepo();
         $userRights = $systemRights->getRightsByUserId($args['id']);
 
         $security = $systemRights->createSecurityMatrix('home/tiles.json');

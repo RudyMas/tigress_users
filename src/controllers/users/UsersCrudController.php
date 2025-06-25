@@ -3,9 +3,9 @@
 namespace Controller\users;
 
 use JetBrains\PhpStorm\NoReturn;
-use Repository\systemRightsRepo;
-use Repository\userRightsRepo;
-use Repository\usersRepo;
+use Repository\SystemRightsRepo;
+use Repository\UserRightsRepo;
+use Repository\UsersRepo;
 use Tigress\Controller;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -39,7 +39,7 @@ class UsersCrudController extends Controller
 
         $active = ($args['show'] == 'active') ? 1 : 0;
 
-        $users = new usersRepo();
+        $users = new UsersRepo();
 
         if ($_SESSION['user']['access_level'] < 100) {
             $usersData = $users->getAll(null, "active = {$active} AND access_level < 100");
@@ -47,7 +47,7 @@ class UsersCrudController extends Controller
             $usersData = $users->getAll(null , "active = {$active}");
         }
 
-        $userRights = new userRightsRepo();
+        $userRights = new UserRightsRepo();
         $userRights->loadAll('id');
 
         foreach ($usersData as &$user) {
@@ -66,14 +66,14 @@ class UsersCrudController extends Controller
     {
         $this->checkRights('write');
 
-        $users = new usersRepo();
+        $users = new UsersRepo();
         $users->loadById($_POST['id']);
         $user = $users->current();
         $user->updateFromPost($_POST);
         $users->save($user);
 
         if (isset($_POST['save_default'])) {
-            $systemRights = new systemRightsRepo();
+            $systemRights = new SystemRightsRepo();
             $systemRights->updateRightsUser('home/tiles.json', $_POST['id'], $_POST['access_level']);
         }
 
@@ -98,7 +98,7 @@ class UsersCrudController extends Controller
     {
         $this->checkRights('write');
 
-        $systemRights = new systemRightsRepo();
+        $systemRights = new SystemRightsRepo();
         $systemRights->deleteByPrimaryKey([
             'user_id' => $_POST['id'],
         ]);
@@ -143,7 +143,7 @@ class UsersCrudController extends Controller
     {
         $this->checkRights('delete');
 
-        $users = new usersRepo();
+        $users = new UsersRepo();
         $users->deleteById($_POST['DeleteUser']);
 
         $_SESSION['success'] = match (substr(CONFIG->website->html_lang, 0, 2)) {
@@ -166,7 +166,7 @@ class UsersCrudController extends Controller
     {
         $this->checkRights('delete');
 
-        $users = new usersRepo();
+        $users = new UsersRepo();
         $users->undeleteById((int)$_POST['RestoreUser']);
 
         $_SESSION['success'] = match (substr(CONFIG->website->html_lang, 0, 2)) {
