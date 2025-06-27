@@ -17,7 +17,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.23.0
+ * @version 2025.06.27.0
  * @package Tigress\Users
  */
 class UsersCrudController extends Controller
@@ -83,6 +83,7 @@ class UsersCrudController extends Controller
             'de' => "Benutzer erfolgreich gespeichert.",
             'es' => "Usuario guardado con éxito.",
             'it' => "Utente salvato con successo.",
+            'sv' => "Korisnik uspješno spremljen.",
             default => "User successfully saved."
         };
         TWIG->redirect('/users');
@@ -129,6 +130,7 @@ class UsersCrudController extends Controller
             'de' => "Rechte erfolgreich gespeichert.",
             'es' => "Derechos guardados con éxito.",
             'it' => "Diritti salvati con successo.",
+            'sv' => "Rättigheter sparade.",
             default => "Rights successfully saved."
         };
         TWIG->redirect('/users');
@@ -152,6 +154,7 @@ class UsersCrudController extends Controller
             'de' => "Benutzer erfolgreich archiviert.",
             'es' => "Usuario archivado con éxito.",
             'it' => "Utente archiviato con successo.",
+            'sv' => "Användare arkiverad.",
             default => "User successfully archived."
         };
         TWIG->redirect('/users');
@@ -175,6 +178,7 @@ class UsersCrudController extends Controller
             'de' => "Benutzer erfolgreich wiederhergestellt.",
             'es' => "Usuario restaurado con éxito.",
             'it' => "Utente ripristinato con successo.",
+            'sv' => "Användare återställd.",
             default => "User successfully restored."
         };
         TWIG->redirect('/users');

@@ -13,7 +13,11 @@
     "update_user_message": "Weet u zeker dat u de gebruiker wilt wijzigen?",
     "update_user_rights": "Gebruikersrechten bijwerken",
     "update_user_rights_message": "Weet u zeker dat u de gebruikersrechten wilt bijwerken?",
-    "user_accounts": "Gebruikersaccounts"
+    "user_accounts": "Gebruikersaccounts",
+
+    "No employee assigned": "Geen medewerker toegekend",
+    "No employees linked to project": "Geen medewerkers gekoppeld aan project",
+    "We couldn't find the user's information.": "We konden de gebruikersinformatie niet vinden."
   },
   "fr": {
     "deleting_user": "Suppression de l'utilisateur !",
@@ -29,7 +33,11 @@
     "update_user_message": "Êtes-vous sûr de vouloir modifier l'utilisateur ?",
     "update_user_rights": "Mettre à jour les droits de l'utilisateur",
     "update_user_rights_message": "Êtes-vous sûr de vouloir mettre à jour les droits de l'utilisateur ?",
-    "user_accounts": "Comptes utilisateurs"
+    "user_accounts": "Comptes utilisateurs",
+
+    "No employee assigned": "Aucun employé attribué",
+    "No employees linked to project": "Aucun employé lié au projet",
+    "We couldn't find the user's information.": "Nous n'avons pas pu trouver les informations de l'utilisateur."
   },
   "de": {
     "deleting_user": "Benutzer löschen!",
@@ -45,7 +53,11 @@
     "update_user_message": "Sind Sie sicher, dass Sie den Benutzer ändern möchten?",
     "update_user_rights": "Benutzerrechte aktualisieren",
     "update_user_rights_message": "Sind Sie sicher, dass Sie die Benutzerrechte aktualisieren möchten?",
-    "user_accounts": "Benutzerkonten"
+    "user_accounts": "Benutzerkonten",
+
+    "No employee assigned": "Kein Mitarbeiter zugewiesen",
+    "No employees linked to project": "Keine Mitarbeiter mit dem Projekt verbunden",
+    "We couldn't find the user's information.": "Wir konnten die Benutzerinformationen nicht finden."
   },
   "es": {
     "deleting_user": "¡Eliminando usuario!",
@@ -61,7 +73,11 @@
     "update_user_message": "¿Está seguro de que desea modificar el usuario?",
     "update_user_rights": "Actualizar derechos de usuario",
     "update_user_rights_message": "¿Está seguro de que desea actualizar los derechos del usuario?",
-    "user_accounts": "Cuentas de usuario"
+    "user_accounts": "Cuentas de usuario",
+
+    "No employee assigned": "Ningún empleado asignado",
+    "No employees linked to project": "Ningún empleado vinculado al proyecto",
+    "We couldn't find the user's information.": "No pudimos encontrar la información del usuario."
   },
   "it": {
     "deleting_user": "Eliminazione utente in corso!",
@@ -77,7 +93,11 @@
     "update_user_message": "Sei sicuro di voler modificare l'utente?",
     "update_user_rights": "Aggiorna diritti utente",
     "update_user_rights_message": "Sei sicuro di voler aggiornare i diritti utente?",
-    "user_accounts": "Account utente"
+    "user_accounts": "Account utente",
+
+    "No employee assigned": "Nessun dipendente assegnato",
+    "No employees linked to project": "Nessun dipendente collegato al progetto",
+    "We couldn't find the user's information.": "Non siamo riusciti a trovare le informazioni dell'utente."
   },
   "sv": {
     "deleting_user": "Tar bort användare!",
@@ -93,7 +113,11 @@
     "update_user_message": "Är du säker på att du vill ändra användaren?",
     "update_user_rights": "Uppdatera användarrättigheter",
     "update_user_rights_message": "Är du säker på att du vill uppdatera användarrättigheterna?",
-    "user_accounts": "Användarkonton"
+    "user_accounts": "Användarkonton",
+
+    "No employee assigned": "Ingen anställd tilldelad",
+    "No employees linked to project": "Inga anställda kopplade till projektet",
+    "We couldn't find the user's information.": "Vi kunde inte hitta användarens information."
   },
   "en": {
     "deleting_user": "Deleting user!",

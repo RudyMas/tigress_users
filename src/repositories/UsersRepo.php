@@ -9,6 +9,8 @@ use Tigress\Repository;
  */
 class UsersRepo extends Repository
 {
+    private string $translationFile = SYSTEM_ROOT . '/vendor/tigress/users/translations/translations.json';
+
     public function __construct()
     {
         $this->dbName = 'default';
@@ -54,7 +56,7 @@ class UsersRepo extends Repository
     {
         $worker_ids = json_decode($worker_ids, true);
         if (empty($worker_ids)) {
-            return 'Geen medewerker toegekend';
+            return __('No employee assigned', $this->translationFile);
         }
 
         $this->reset();
@@ -100,7 +102,7 @@ class UsersRepo extends Repository
     public function getSelectOptionsWorkers(?array $worker_ids, ?array $project_team_member_ids): string
     {
         if (is_null($project_team_member_ids)) {
-            return '<option value="0" disabled>Geen medewerkers aan project gekoppeld</option>';
+            return '<option value="0" disabled>' . __('No employees linked to project', $this->translationFile) . '</option>';
         }
 
         $this->reset();
