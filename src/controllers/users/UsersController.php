@@ -16,7 +16,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.23.1
+ * @version 2025.06.27.0
  * @package Tigress\Users
  */
 class UsersController extends Controller
@@ -27,6 +27,7 @@ class UsersController extends Controller
     public function __construct()
     {
         TWIG->addPath('vendor/tigress/users/src/views');
+        TWIG->addGlobal('translations', json_decode(file_get_contents(SYSTEM_ROOT . '/vendor/tigress/users/translations/translations.json'), true));
     }
 
     /**
@@ -68,6 +69,7 @@ class UsersController extends Controller
                 'de' => "Wir konnten die Benutzerinformationen nicht finden.",
                 'es' => "No pudimos encontrar la información del usuario.",
                 'it' => "Non siamo riusciti a trovare le informazioni dell'utente.",
+                'sv' => "Vi kunde inte hitta användarens information.",
                 default => "We couldn't find the user's information."
             };
             TWIG->redirect('/users');
