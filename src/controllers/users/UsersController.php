@@ -21,15 +21,13 @@ use Twig\Error\SyntaxError;
  */
 class UsersController extends Controller
 {
-    private string $translationFile = SYSTEM_ROOT . '/vendor/tigress/users/translations/translations.json';
-
     /**
      * @throws LoaderError
      */
     public function __construct()
     {
         TWIG->addPath('vendor/tigress/users/src/views');
-        TWIG->addGlobal('translations', json_decode(file_get_contents($this->translationFile), true));
+        TRANSLATIONS->load(SYSTEM_ROOT . '/vendor/tigress/users/translations/translations.json');
     }
 
     /**
@@ -65,7 +63,7 @@ class UsersController extends Controller
         $users->loadById($args['id']);
 
         if ($users->isEmpty()) {
-            $_SESSION['error'] = __('We couldn\'t find the user\'s information.', $this->translationFile);
+            $_SESSION['error'] = __('We couldn\'t find the user\'s information.');
             TWIG->redirect('/users');
         }
 

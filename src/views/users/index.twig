@@ -8,20 +8,19 @@
             show: '{{ _GET.show }}',
         }
         let language = {
-            base: {{ base_trans|json_encode|raw }},
-            local: {{ translations|json_encode|raw }},
+            translations: {{ translations|json_encode|raw }},
         }
     </script>
     <script src="{{ BASE_URL }}/vendor/tigress/users/public/javascript/users/index.js"></script>
 {% endblock %}
-{% block title %}{{ trans('users', base_trans) }}{% endblock %}
+{% block title %}{{ __('users') }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item active">{{ trans('users', base_trans) }}</li>
+                    <li class="breadcrumb-item active">{{ __('users') }}</li>
                 </ol>
             </nav>
         </div>
@@ -31,13 +30,13 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-md-9">
-                <h3>{{ trans('user_accounts', translations) }}</h3>
+                <h3>{{ __('user_accounts') }}</h3>
             </div>
             <div class="col-md-3 text-end">
                 {% if _GET.show == 'archive' %}
-                    <a href="{{ BASE_URL }}/users" class="btn btn-warning mb-1"><i class="fa-solid fa-archive"></i> {{ trans('archive', base_trans) }}</a>
+                    <a href="{{ BASE_URL }}/users" class="btn btn-warning mb-1"><i class="fa-solid fa-archive"></i> {{ __('archive') }}</a>
                 {% else %}
-                    <a href="{{ BASE_URL }}/users?show=archive" class="btn btn-outline-warning mb-1"><i class="fa-solid fa-archive"></i> {{ trans('archive', base_trans) }}</a>
+                    <a href="{{ BASE_URL }}/users?show=archive" class="btn btn-outline-warning mb-1"><i class="fa-solid fa-archive"></i> {{ __('archive') }}</a>
                 {% endif %}
             </div>
         </div>
@@ -63,15 +62,15 @@
             <div class="modal-dialog" style="color: black">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">{{ trans('deleting_user', translations) }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', base_trans) }}"></button>
+                        <h5 class="modal-title">{{ __('deleting_user') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('close') }}"></button>
                     </div>
                     <div class="modal-body">
-                        <p>{{ trans('deleting_user_message', translations) }}</p>
+                        <p>{{ __('deleting_user_message') }}</p>
                     </div>
                     <div class="modal-footer">
-                        <button id="DeleteUser" name="DeleteUser" value="" type="submit" class="btn btn-success">{{ trans('yes', base_trans) }}</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', base_trans) }}</button>
+                        <button id="DeleteUser" name="DeleteUser" value="" type="submit" class="btn btn-success">{{ __('yes') }}</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('no') }}</button>
                     </div>
                 </div>
             </div>
@@ -84,15 +83,15 @@
             <div class="modal-dialog" style="color: black">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">{{ trans('restoring_user', translations) }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', base_trans) }}"></button>
+                        <h5 class="modal-title">{{ __('restoring_user') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('close') }}"></button>
                     </div>
                     <div class="modal-body">
-                        <p>{{ trans('restoring_user_message', translations) }}</p>
+                        <p>{{ __('restoring_user_message') }}</p>
                     </div>
                     <div class="modal-footer">
-                        <button id="RestoreUser" name="RestoreUser" value="" type="submit" class="btn btn-success">{{ trans('yes', base_trans) }}</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', base_trans) }}</button>
+                        <button id="RestoreUser" name="RestoreUser" value="" type="submit" class="btn btn-success">{{ __('yes') }}</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('no') }}</button>
                     </div>
                 </div>
             </div>

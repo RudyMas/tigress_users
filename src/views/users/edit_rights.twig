@@ -7,15 +7,15 @@
     {{ parent() }}
     <script src="/vendor/tigress/users/public/javascript/users/edit_rights.js"></script>
 {% endblock %}
-{% block title %}{{ trans('edit_user_rights', translations) }}{% endblock %}
+{% block title %}{{ __('edit_user_rights') }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/users">{{ trans('users', base_trans) }}</a></li>
-                    <li class="breadcrumb-item active">{{ trans('edit_user_rights', translations) }}</li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/users">{{ __('users') }}</a></li>
+                    <li class="breadcrumb-item active">{{ __('edit_user_rights') }}</li>
                 </ol>
             </nav>
         </div>
@@ -25,7 +25,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-md-9">
-                <h3>{{ trans('edit_user_rights', translations) }}</h3>
+                <h3>{{ __('edit_user_rights') }}</h3>
             </div>
             <div class="col-md-3 text-end">
             </div>
@@ -34,16 +34,16 @@
             <div class="row mb-2">
                 <div class="col-md-12">
                     <fieldset class="mt-2">
-                        <legend><h3>{{ trans('grant_rights_for', translations) }} {{ user.last_name }} {{ user.first_name }}:</h3></legend>
+                        <legend><h3>{{ __('grant_rights_for') }} {{ user.last_name }} {{ user.first_name }}:</h3></legend>
                         <div class="table-responsive">
                             <table class="table table-sm table-bordered">
                                 <thead class="table-light">
                                 <tr>
-                                    <th>{{ trans('tile', base_trans) }}</th>
-                                    <th class="text-center">{{ trans('access', base_trans) }}</th>
-                                    <th class="text-center">{{ trans('read', base_trans) }}</th>
-                                    <th class="text-center">{{ trans('write', base_trans) }}</th>
-                                    <th class="text-center">{{ trans('delete', base_trans) }}</th>
+                                    <th>{{ __('tile') }}</th>
+                                    <th class="text-center">{{ __('access') }}</th>
+                                    <th class="text-center">{{ __('read') }}</th>
+                                    <th class="text-center">{{ __('write') }}</th>
+                                    <th class="text-center">{{ __('delete') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody id="checkboxes">
@@ -53,7 +53,7 @@
                                     </tr>
                                     {% for keySub, valueSub in value %}
                                         <tr>
-                                            <td>{{ keySub }} {% if valueSub.all %}(<b><span class="text-success">{{ trans('full_access', base_trans) }}</span></b>){% endif %}
+                                            <td>{{ keySub }} {% if valueSub.all %}(<b><span class="text-success">{{ __('full_access') }}</span></b>){% endif %}
                                             </td>
                                             <td class="text-center">
                                                 <input type="checkbox"
@@ -88,9 +88,9 @@
                 <div class="col-md-3">
                     <input type="hidden" name="id" value="{{ user.id }}">
                     <button type="button" id="submitBtn" data-bs-toggle="modal" data-bs-target="#confirm-submit"
-                            class="btn btn-success"><i class="fa fa-save"></i> {{ trans('save', base_trans) }}
+                            class="btn btn-success"><i class="fa fa-save"></i> {{ __('save') }}
                     </button>
-                    <a class="btn btn-danger" href="{{ BASE_URL }}/users"><i class="fa fa-times"></i> {{ trans('cancel', base_trans) }}</a>
+                    <a class="btn btn-danger" href="{{ BASE_URL }}/users"><i class="fa fa-times"></i> {{ __('cancel') }}</a>
                 </div>
             </div>
         </form>
@@ -101,15 +101,15 @@
         <div class="modal-dialog" style="color: black">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ trans('update_user_rights', batranslationsse_trans) }}</h5>
+                    <h5 class="modal-title">{{ __('update_user_rights') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>{{ trans('update_user_rights_message', translations) }}</p>
+                    <p>{{ __('update_user_rights_message') }}</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" id="submit" class="btn btn-success success">{{ trans('yes', base_trans) }}</a>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', base_trans) }}</button>
+                    <a href="#" id="submit" class="btn btn-success success">{{ __('yes') }}</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('no') }}</button>
                 </div>
             </div>
         </div>

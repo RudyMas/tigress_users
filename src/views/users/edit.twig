@@ -3,15 +3,15 @@
     {{ parent() }}
     <script src="{{ BASE_URL }}/vendor/tigress/users/public/javascript/users/edit.js"></script>
 {% endblock %}
-{% block title %}{{ trans('edit_user_information', translations) }}{% endblock %}
+{% block title %}{{ __('edit_user_information') }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/users">{{ trans('users', base_trans) }}</a></li>
-                    <li class="breadcrumb-item active">{{ trans('edit_user_information', translations) }}</li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/users">{{ __('users') }}</a></li>
+                    <li class="breadcrumb-item active">{{ __('edit_user_information') }}</li>
                 </ol>
             </nav>
         </div>
@@ -21,7 +21,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-md-9">
-                <h3>{{ trans('edit_user_information', translations) }}</h3>
+                <h3>{{ __('edit_user_information') }}</h3>
             </div>
             <div class="col-md-3 text-end">
             </div>
@@ -33,31 +33,31 @@
                         <input type="hidden" id="id" name="id" value="{{ user.id }}">
                         <div class="row mb-2">
                             <div class="col-md-6">
-                                <label for="last_name" class="form-label"><b>{{ trans('family_name', base_trans) }}</b></label>
+                                <label for="last_name" class="form-label"><b>{{ __('family_name') }}</b></label>
                                 <input class="form-control" id="last_name" name="last_name" type="text"
                                        value="{{ user.last_name }}" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="first_name" class="form-label"><b>{{ trans('first_name', base_trans) }}</b></label>
+                                <label for="first_name" class="form-label"><b>{{ __('first_name') }}</b></label>
                                 <input class="form-control" id="first_name" name="first_name" type="text"
                                        value="{{ user.first_name }}" required>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-3">
-                                <label for="last_login" class="form-label"><b>{{ trans('last_login', base_trans) }}</b></label>
+                                <label for="last_login" class="form-label"><b>{{ __('last_login') }}</b></label>
                                 <input class="form-control" id="last_login" name="last_login" type="datetime-local"
                                        value="{{ user.last_login }}" disabled>
                             </div>
                             <div class="col-md-9">
-                                <label for="email" class="form-label"><b>{{ trans('email', base_trans) }}</b></label>
+                                <label for="email" class="form-label"><b>{{ __('email') }}</b></label>
                                 <input class="form-control" id="email" name="email" type="text"
                                        value="{{ user.email }}">
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-xl-4 col-md-6">
-                                <label for="access_level" class="form-label"><b>{{ trans('access_level', base_trans) }}</b></label>
+                                <label for="access_level" class="form-label"><b>{{ __('access_level') }}</b></label>
                                 <select class="form-select" name="access_level" id="access_level" required>
                                     {{ selectOptiesRights|raw }}
                                 </select>
@@ -69,7 +69,7 @@
                                 <label for="save_default" class="slider-container">
                                     <input type="checkbox" id="save_default" name="save_default"
                                            class="slider-checkbox" value="1">
-                                    <span class="slider-label"></span> <b>{{ trans('set_default_permissions', translations) }}</b>
+                                    <span class="slider-label"></span> <b>{{ __('set_default_permissions') }}</b>
                                 </label>
                             </div>
                         </div>
@@ -80,10 +80,9 @@
                 <div class="col-md-3">
                     <input type="hidden" name="action" value="Update">
                     <button type="button" id="submitBtn" data-bs-toggle="modal" data-bs-target="#confirm-submit"
-                            class="btn btn-success"><i class="fa fa-save"></i> {{ trans('save', base_trans) }}
+                            class="btn btn-success"><i class="fa fa-save"></i> {{ __('save') }}
                     </button>
-                    <a class="btn btn-danger" href="{{ BASE_URL }}/users"><i class="fa fa-times"></i> {{ trans('cancel',
-                        base_trans) }}</a>
+                    <a class="btn btn-danger" href="{{ BASE_URL }}/users"><i class="fa fa-times"></i> {{ __('cancel') }}</a>
                 </div>
             </div>
         </form>
@@ -94,15 +93,15 @@
         <div class="modal-dialog" style="color: black">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ trans('update_user', translations) }}</h5>
+                    <h5 class="modal-title">{{ __('update_user') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>{{ trans('update_user_message', translations) }}</p>
+                    <p>{{ __('update_user_message') }}</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" id="submit" class="btn btn-success">{{ trans('yes', base_trans) }}</a>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', base_trans) }}</button>
+                    <a href="#" id="submit" class="btn btn-success">{{ __('yes') }}</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('no') }}</button>
                 </div>
             </div>
         </div>

@@ -1,12 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     window.tigress = window.tigress || {};
 
-    window.tigress.loadTranslations([
-        '/translations/translations.json',
-    ]).then(function () {
-
-        const base_trans = language.base[tigress.shortLang] || language.base['en'];
-        const translations = language.local[tigress.shortLang] || language.local['en'];
+    window.tigress.loadTranslations(language.translations)
+        .then(function () {
 
         let url = '/users/get/active';
         if (variables.show === 'archive') {
@@ -38,23 +34,23 @@ document.addEventListener('DOMContentLoaded', function () {
             responsive: true,
             columns: [
                 {
-                    title: base_trans.id,
+                    title: __('id'),
                     data: "id",
                 },
                 {
-                    title: base_trans.family_name,
+                    title: __('family_name'),
                     data: "last_name",
                 },
                 {
-                    title: base_trans.first_name,
+                    title: __('first_name'),
                     data: "first_name",
                 },
                 {
-                    title: base_trans.email,
+                    title: __('email'),
                     data: "email",
                 },
                 {
-                    title: base_trans.last_login,
+                    title: __('last_login'),
                     data: "last_login",
                     className: "text-nowrap",
                 },
@@ -64,14 +60,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     visible: false,
                 },
                 {
-                    title: base_trans.access_level,
+                    title: __('access_level'),
                     data: "access_level_name",
                     render: function (data, type, row) {
                         return __(data);
                     }
                 },
                 {
-                    title: base_trans.actions,
+                    title: __('actions'),
                     data: null,
                     width: "1%",
                     class: "text-nowrap",
@@ -80,15 +76,15 @@ document.addEventListener('DOMContentLoaded', function () {
                         let output = "<form action='#' method='post' enctype='multipart/form-data'>";
                         if (variables.show === 'archive') {
                             if (variables.delete) {
-                                output += ` <button title="${base_trans.restore}" type="button" class="btn btn-sm btn-success open-modal" data-bs-toggle="modal" data-bs-target="#confirm-undelete" data-id="${oData.id}"><i class="fa-solid fa-undo" aria-hidden="true"></i></button>`;
+                                output += ` <button title="${__('restore')}" type="button" class="btn btn-sm btn-success open-modal" data-bs-toggle="modal" data-bs-target="#confirm-undelete" data-id="${oData.id}"><i class="fa-solid fa-undo" aria-hidden="true"></i></button>`;
                             }
                         } else {
                             if (variables.write) {
-                                output += ` <a data-bs-toggle="tooltip" title="${base_trans.edit}" href="/users/edit/${oData.id}" class="btn btn-sm btn-success"><i class='fa fa-pencil' aria-hidden='true'></i></a>`;
-                                output += ` <a data-bs-toggle="tooltip" title="${translations.edit_rights}" href="/users/rights/${oData.id}" class="btn btn-sm btn-warning"><i class='fa fa-gear' aria-hidden='true'></i></a>`;
+                                output += ` <a data-bs-toggle="tooltip" title="${__('edit')}" href="/users/edit/${oData.id}" class="btn btn-sm btn-success"><i class='fa fa-pencil' aria-hidden='true'></i></a>`;
+                                output += ` <a data-bs-toggle="tooltip" title="${__('edit_rights')}" href="/users/rights/${oData.id}" class="btn btn-sm btn-warning"><i class='fa fa-gear' aria-hidden='true'></i></a>`;
                             }
                             if (variables.delete) {
-                                output += ` <button title="${base_trans.archive}" type="button" class="btn btn-sm btn-danger open-modal" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-id="${oData.id}"><i class="fa fa-archive" aria-hidden="true"></i></button>`;
+                                output += ` <button title="${__('archive')}" type="button" class="btn btn-sm btn-danger open-modal" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-id="${oData.id}"><i class="fa fa-archive" aria-hidden="true"></i></button>`;
                             }
                         }
                         output += "</form>";
@@ -105,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             return '';
                         }
                         if (data === '0000-00-00 00:00:00') {
-                            return type === 'display' ? `<span class="text-muted">${base_trans.no_login}</span>` : null;
+                            return type === 'display' ? `<span class="text-muted">${__('no_login')}</span>` : null;
                         }
                         return type === 'display'
                             ? moment(data, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY, HH:mm')

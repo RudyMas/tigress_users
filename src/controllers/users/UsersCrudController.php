@@ -22,6 +22,11 @@ use Twig\Error\SyntaxError;
  */
 class UsersCrudController extends Controller
 {
+    public function __construct()
+    {
+        TRANSLATIONS->load(SYSTEM_ROOT . '/vendor/tigress/users/translations/translations.json');
+    }
+
     /**
      * Get all active users
      *
@@ -77,15 +82,7 @@ class UsersCrudController extends Controller
             $systemRights->updateRightsUser('home/tiles.json', $_POST['id'], $_POST['access_level']);
         }
 
-        $_SESSION['success'] = match (substr(CONFIG->website->html_lang, 0, 2)) {
-            'nl' => "Gebruiker succesvol opgeslagen.",
-            'fr' => "Utilisateur enregistré avec succès.",
-            'de' => "Benutzer erfolgreich gespeichert.",
-            'es' => "Usuario guardado con éxito.",
-            'it' => "Utente salvato con successo.",
-            'sv' => "Korisnik uspješno spremljen.",
-            default => "User successfully saved."
-        };
+        $_SESSION['success'] = __('User successfully saved.');
         TWIG->redirect('/users');
     }
 
@@ -124,15 +121,7 @@ class UsersCrudController extends Controller
             $systemRights->saveAll();
         }
 
-        $_SESSION['success'] = match (substr(CONFIG->website->html_lang, 0, 2)) {
-            'nl' => "Rechten succesvol opgeslagen.",
-            'fr' => "Droits enregistrés avec succès.",
-            'de' => "Rechte erfolgreich gespeichert.",
-            'es' => "Derechos guardados con éxito.",
-            'it' => "Diritti salvati con successo.",
-            'sv' => "Rättigheter sparade.",
-            default => "Rights successfully saved."
-        };
+        $_SESSION['success'] = __('Rights successfully saved.');
         TWIG->redirect('/users');
     }
 
@@ -148,15 +137,7 @@ class UsersCrudController extends Controller
         $users = new UsersRepo();
         $users->deleteById($_POST['DeleteUser']);
 
-        $_SESSION['success'] = match (substr(CONFIG->website->html_lang, 0, 2)) {
-            'nl' => "Gebruiker succesvol gearchiveerd.",
-            'fr' => "Utilisateur archivé avec succès.",
-            'de' => "Benutzer erfolgreich archiviert.",
-            'es' => "Usuario archivado con éxito.",
-            'it' => "Utente archiviato con successo.",
-            'sv' => "Användare arkiverad.",
-            default => "User successfully archived."
-        };
+        $_SESSION['success'] = __('User successfully archived.');
         TWIG->redirect('/users');
     }
 
@@ -172,15 +153,7 @@ class UsersCrudController extends Controller
         $users = new UsersRepo();
         $users->undeleteById((int)$_POST['RestoreUser']);
 
-        $_SESSION['success'] = match (substr(CONFIG->website->html_lang, 0, 2)) {
-            'nl' => "Gebruiker succesvol hersteld.",
-            'fr' => "Utilisateur restauré avec succès.",
-            'de' => "Benutzer erfolgreich wiederhergestellt.",
-            'es' => "Usuario restaurado con éxito.",
-            'it' => "Utente ripristinato con successo.",
-            'sv' => "Användare återställd.",
-            default => "User successfully restored."
-        };
+        $_SESSION['success'] = __('User successfully restored.');
         TWIG->redirect('/users');
     }
 }

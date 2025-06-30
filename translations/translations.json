@@ -17,6 +17,10 @@
 
     "No employee assigned": "Geen medewerker toegekend",
     "No employees linked to project": "Geen medewerkers gekoppeld aan project",
+    "Rights successfully saved.": "Rechten succesvol opgeslagen.",
+    "User successfully archived.": "Gebruiker succesvol gearchiveerd.",
+    "User successfully restored.": "Gebruiker succesvol hersteld.",
+    "User successfully saved.": "Gebruiker succesvol opgeslagen.",
     "We couldn't find the user's information.": "We konden de gebruikersinformatie niet vinden."
   },
   "fr": {
@@ -37,6 +41,10 @@
 
     "No employee assigned": "Aucun employé attribué",
     "No employees linked to project": "Aucun employé lié au projet",
+    "Rights successfully saved.": "Droits enregistrés avec succès.",
+    "User successfully archived.": "Utilisateur archivé avec succès.",
+    "User successfully restored.": "Utilisateur restauré avec succès.",
+    "User successfully saved.": "Utilisateur enregistré avec succès.",
     "We couldn't find the user's information.": "Nous n'avons pas pu trouver les informations de l'utilisateur."
   },
   "de": {
@@ -57,6 +65,10 @@
 
     "No employee assigned": "Kein Mitarbeiter zugewiesen",
     "No employees linked to project": "Keine Mitarbeiter mit dem Projekt verbunden",
+    "Rights successfully saved.": "Rechte erfolgreich gespeichert.",
+    "User successfully archived.": "Benutzer erfolgreich archiviert.",
+    "User successfully restored.": "Benutzer erfolgreich wiederhergestellt.",
+    "User successfully saved.": "Benutzer erfolgreich gespeichert.",
     "We couldn't find the user's information.": "Wir konnten die Benutzerinformationen nicht finden."
   },
   "es": {
@@ -77,6 +89,10 @@
 
     "No employee assigned": "Ningún empleado asignado",
     "No employees linked to project": "Ningún empleado vinculado al proyecto",
+    "Rights successfully saved.": "Derechos guardados con éxito.",
+    "User successfully archived.": "Usuario archivado con éxito.",
+    "User successfully restored.": "Usuario restaurado con éxito.",
+    "User successfully saved.": "Usuario guardado con éxito.",
     "We couldn't find the user's information.": "No pudimos encontrar la información del usuario."
   },
   "it": {
@@ -97,6 +113,10 @@
 
     "No employee assigned": "Nessun dipendente assegnato",
     "No employees linked to project": "Nessun dipendente collegato al progetto",
+    "Rights successfully saved.": "Diritti salvati con successo.",
+    "User successfully archived.": "Utente archiviato con successo.",
+    "User successfully restored.": "Utente ripristinato con successo.",
+    "User successfully saved.": "Utente salvato con successo.",
     "We couldn't find the user's information.": "Non siamo riusciti a trovare le informazioni dell'utente."
   },
   "sv": {
@@ -117,6 +137,10 @@
 
     "No employee assigned": "Ingen anställd tilldelad",
     "No employees linked to project": "Inga anställda kopplade till projektet",
+    "Rights successfully saved.": "Rättigheter sparade framgångsrikt.",
+    "User successfully archived.": "Användare arkiverad framgångsrikt.",
+    "User successfully restored.": "Användare återställd framgångsrikt.",
+    "User successfully saved.": "Användare sparad framgångsrikt.",
     "We couldn't find the user's information.": "Vi kunde inte hitta användarens information."
   },
   "en": {
