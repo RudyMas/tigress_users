@@ -7,15 +7,15 @@
     {{ parent() }}
     <script src="/vendor/tigress/users/public/javascript/users/edit_rights.js"></script>
 {% endblock %}
-{% block title %}{{ __('edit_user_rights') }}{% endblock %}
+{% block title %}{{ __('Edit user rights') }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/users">{{ __('users') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('edit_user_rights') }}</li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/users">{{ __('Users') }}</a></li>
+                    <li class="breadcrumb-item active">{{ __('Edit user rights') }}</li>
                 </ol>
             </nav>
         </div>
@@ -25,7 +25,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-md-9">
-                <h3>{{ __('edit_user_rights') }}</h3>
+                <h3>{{ __('Edit user rights') }}</h3>
             </div>
             <div class="col-md-3 text-end">
             </div>
@@ -34,16 +34,16 @@
             <div class="row mb-2">
                 <div class="col-md-12">
                     <fieldset class="mt-2">
-                        <legend><h3>{{ __('grant_rights_for') }} {{ user.last_name }} {{ user.first_name }}:</h3></legend>
+                        <legend><h3>{{ __('Grant rights for') }} {{ user.last_name }} {{ user.first_name }}:</h3></legend>
                         <div class="table-responsive">
                             <table class="table table-sm table-bordered">
                                 <thead class="table-light">
                                 <tr>
-                                    <th>{{ __('tile') }}</th>
-                                    <th class="text-center">{{ __('access') }}</th>
-                                    <th class="text-center">{{ __('read') }}</th>
-                                    <th class="text-center">{{ __('write') }}</th>
-                                    <th class="text-center">{{ __('delete') }}</th>
+                                    <th>{{ __('Tile') }}</th>
+                                    <th class="text-center">{{ __('Access') }}</th>
+                                    <th class="text-center">{{ __('Read') }}</th>
+                                    <th class="text-center">{{ __('Write') }}</th>
+                                    <th class="text-center">{{ __('Delete') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody id="checkboxes">
@@ -53,7 +53,7 @@
                                     </tr>
                                     {% for keySub, valueSub in value %}
                                         <tr>
-                                            <td>{{ keySub }} {% if valueSub.all %}(<b><span class="text-success">{{ __('full_access') }}</span></b>){% endif %}
+                                            <td>{{ keySub }} {% if valueSub.all %}(<b><span class="text-success">{{ __('Full access') }}</span></b>){% endif %}
                                             </td>
                                             <td class="text-center">
                                                 <input type="checkbox"
@@ -88,9 +88,9 @@
                 <div class="col-md-3">
                     <input type="hidden" name="id" value="{{ user.id }}">
                     <button type="button" id="submitBtn" data-bs-toggle="modal" data-bs-target="#confirm-submit"
-                            class="btn btn-success"><i class="fa fa-save"></i> {{ __('save') }}
+                            class="btn btn-success"><i class="fa fa-save"></i> {{ __('Save') }}
                     </button>
-                    <a class="btn btn-danger" href="{{ BASE_URL }}/users"><i class="fa fa-times"></i> {{ __('cancel') }}</a>
+                    <a class="btn btn-danger" href="{{ BASE_URL }}/users"><i class="fa fa-times"></i> {{ __('Cancel') }}</a>
                 </div>
             </div>
         </form>
@@ -101,15 +101,15 @@
         <div class="modal-dialog" style="color: black">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ __('update_user_rights') }}</h5>
+                    <h5 class="modal-title">{{ __('Update user rights') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>{{ __('update_user_rights_message') }}</p>
+                    <p>{{ __('Are you sure you want to update the user rights?') }}</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" id="submit" class="btn btn-success success">{{ __('yes') }}</a>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('no') }}</button>
+                    <a href="#" id="submit" class="btn btn-success success">{{ __('Yes') }}</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('No') }}</button>
                 </div>
             </div>
         </div>

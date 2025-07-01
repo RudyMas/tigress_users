@@ -34,23 +34,23 @@ document.addEventListener('DOMContentLoaded', function () {
             responsive: true,
             columns: [
                 {
-                    title: __('id'),
+                    title: __('ID'),
                     data: "id",
                 },
                 {
-                    title: __('family_name'),
+                    title: __('Family name'),
                     data: "last_name",
                 },
                 {
-                    title: __('first_name'),
+                    title: __('First name'),
                     data: "first_name",
                 },
                 {
-                    title: __('email'),
+                    title: __('E-mail'),
                     data: "email",
                 },
                 {
-                    title: __('last_login'),
+                    title: __('Last login'),
                     data: "last_login",
                     className: "text-nowrap",
                 },
@@ -60,14 +60,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     visible: false,
                 },
                 {
-                    title: __('access_level'),
+                    title: __('Access level'),
                     data: "access_level_name",
                     render: function (data, type, row) {
                         return __(data);
                     }
                 },
                 {
-                    title: __('actions'),
+                    title: __('Actions'),
                     data: null,
                     width: "1%",
                     class: "text-nowrap",
@@ -76,15 +76,15 @@ document.addEventListener('DOMContentLoaded', function () {
                         let output = "<form action='#' method='post' enctype='multipart/form-data'>";
                         if (variables.show === 'archive') {
                             if (variables.delete) {
-                                output += ` <button title="${__('restore')}" type="button" class="btn btn-sm btn-success open-modal" data-bs-toggle="modal" data-bs-target="#confirm-undelete" data-id="${oData.id}"><i class="fa-solid fa-undo" aria-hidden="true"></i></button>`;
+                                output += ` <button title="${__('Restore')}" type="button" class="btn btn-sm btn-success open-modal" data-bs-toggle="modal" data-bs-target="#confirm-undelete" data-id="${oData.id}"><i class="fa-solid fa-undo" aria-hidden="true"></i></button>`;
                             }
                         } else {
                             if (variables.write) {
-                                output += ` <a data-bs-toggle="tooltip" title="${__('edit')}" href="/users/edit/${oData.id}" class="btn btn-sm btn-success"><i class='fa fa-pencil' aria-hidden='true'></i></a>`;
-                                output += ` <a data-bs-toggle="tooltip" title="${__('edit_rights')}" href="/users/rights/${oData.id}" class="btn btn-sm btn-warning"><i class='fa fa-gear' aria-hidden='true'></i></a>`;
+                                output += ` <a data-bs-toggle="tooltip" title="${__('Edit')}" href="/users/edit/${oData.id}" class="btn btn-sm btn-success"><i class='fa fa-pencil' aria-hidden='true'></i></a>`;
+                                output += ` <a data-bs-toggle="tooltip" title="${__('Edit rights')}" href="/users/rights/${oData.id}" class="btn btn-sm btn-warning"><i class='fa fa-gear' aria-hidden='true'></i></a>`;
                             }
                             if (variables.delete) {
-                                output += ` <button title="${__('archive')}" type="button" class="btn btn-sm btn-danger open-modal" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-id="${oData.id}"><i class="fa fa-archive" aria-hidden="true"></i></button>`;
+                                output += ` <button title="${__('Archive')}" type="button" class="btn btn-sm btn-danger open-modal" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-id="${oData.id}"><i class="fa fa-archive" aria-hidden="true"></i></button>`;
                             }
                         }
                         output += "</form>";
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             return '';
                         }
                         if (data === '0000-00-00 00:00:00') {
-                            return type === 'display' ? `<span class="text-muted">${__('no_login')}</span>` : null;
+                            return type === 'display' ? `<span class="text-muted">${__('No login')}</span>` : null;
                         }
                         return type === 'display'
                             ? moment(data, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY, HH:mm')
