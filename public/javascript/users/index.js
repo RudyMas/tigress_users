@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     window.tigress = window.tigress || {};
 
-    window.tigress.loadTranslations(language.translations)
-        .then(function () {
+    window.tigress.loadTranslations(language.translations).then(function () {
 
         let url = '/users/get/active';
         if (variables.show === 'archive') {

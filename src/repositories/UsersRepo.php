@@ -9,10 +9,10 @@ use Tigress\Repository;
  */
 class UsersRepo extends Repository
 {
-    private string $translationFile = SYSTEM_ROOT . '/vendor/tigress/users/translations/translations.json';
-
     public function __construct()
     {
+        TRANSLATIONS->load(SYSTEM_ROOT . '/vendor/tigress/users/translations/translations.json');
+
         $this->dbName = 'default';
         $this->table = 'users';
         $this->primaryKey = ['id'];
@@ -56,7 +56,7 @@ class UsersRepo extends Repository
     {
         $worker_ids = json_decode($worker_ids, true);
         if (empty($worker_ids)) {
-            return __('No employee assigned', $this->translationFile);
+            return __('No employee assigned');
         }
 
         $this->reset();
