@@ -102,7 +102,7 @@ class UsersRepo extends Repository
     public function getSelectOptionsWorkers(?array $worker_ids, ?array $project_team_member_ids): string
     {
         if (is_null($project_team_member_ids)) {
-            return '<option value="0" disabled>' . __('No employees linked to project', $this->translationFile) . '</option>';
+            return '<option value="0" disabled>' . __('No employees linked to project') . '</option>';
         }
 
         $this->reset();

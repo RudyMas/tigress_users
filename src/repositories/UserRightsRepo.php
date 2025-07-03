@@ -37,6 +37,9 @@ class UserRightsRepo extends Repository
     ): string
     {
         $this->loadAll('id');
+        foreach ($this as $data) {
+            $data->$display = __($data->$display);
+        }
         return $this->createOptions($right_id, $text, $display, $value);
     }
 }
