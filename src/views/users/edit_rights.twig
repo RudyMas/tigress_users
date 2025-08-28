@@ -11,7 +11,7 @@
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
-            <nav aria-label="breadcrumb" data-bs-theme="dark">
+            <nav aria-label="breadcrumb" data-bs-theme="{{ WEBSITE.mode }}">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/users">{{ __('Users') }}</a></li>
