@@ -65,12 +65,7 @@
                         </div>
                         <div class="row mb-2">
                             <div class="col-xl-4 col-md-6">
-                                <input type="hidden" name="save_default" value="0">
-                                <label for="save_default" class="slider-container">
-                                    <input type="checkbox" id="save_default" name="save_default"
-                                           class="slider-checkbox" value="1">
-                                    <span class="slider-label"></span> <b>{{ __('Set default permissions') }}</b>
-                                </label>
+                                {{ add_slider('save_default', null, '<b>' ~ __('Set default permissions') ~ '</b>', 'back')|raw }}
                             </div>
                         </div>
                     </fieldset>
