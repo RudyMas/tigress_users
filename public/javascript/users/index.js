@@ -110,12 +110,10 @@ document.addEventListener('DOMContentLoaded', function () {
             ],
             stateSave: true,
             order: [[1, "asc"]],
-            language: tigress.languageOption,
-        });
-
-        // Tooltip initialiseren bij elke redraw
-        tableUsers.on('draw', function () {
-            initTooltips();
+            language: tigress.languageDatatables,
+            drawCallback: function () {
+                initTooltips();
+            }
         });
 
         let modalDelete = document.getElementById('confirm-delete');
