@@ -12,12 +12,12 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
 /**
- * Class UsersCrudController (PHP version 8.4)
+ * Class UsersCrudController (PHP version 8.5)
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
- * @copyright 2025 Rudy Mas (https://rudymas.be)
+ * @copyright 2025-2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.27.0
+ * @version 2026.01.21.0
  * @package Tigress\Users
  */
 class UsersCrudController extends Controller
@@ -56,7 +56,7 @@ class UsersCrudController extends Controller
         $userRights->loadAll('id');
 
         foreach ($usersData as &$user) {
-            $user->access_level_name = $userRights->get($user->access_level)->name;
+            $user->access_level_name = $userRights->get($user->access_level)->name ?? __('Information not available');
         }
 
         TWIG->render(null, $usersData, 'DT');
