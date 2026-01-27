@@ -17,7 +17,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025-2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2026.01.21.0
+ * @version 2026.01.27.0
  * @package Tigress\Users
  */
 class UsersCrudController extends Controller
@@ -74,7 +74,7 @@ class UsersCrudController extends Controller
         $users = new UsersRepo();
         $users->loadById($_POST['id']);
         $user = $users->current();
-        $user->updateFromPost($_POST);
+        $user->updateByPost($_POST);
         $users->save($user);
 
         if (isset($_POST['save_default'])) {
