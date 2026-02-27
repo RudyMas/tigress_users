@@ -56,21 +56,25 @@
                                             <td>{{ keySub }} {% if valueSub.all %}(<b><span class="text-success">{{ __('Full access') }}</span></b>){% endif %}
                                             </td>
                                             <td class="text-center">
+                                                <input type="hidden" name="rights[{{ valueSub.special_rights }}][access]" value="0">
                                                 <input type="checkbox"
                                                        name="rights[{{ valueSub.special_rights }}][access]"
                                                        value="1"{% if valueSub.access %} checked{% endif %}{% if valueSub.all %} disabled{% endif %}>
                                             </td>
                                             <td class="text-center">
+                                                <input type="hidden" name="rights[{{ valueSub.special_rights }}][read]" value="0">
                                                 <input type="checkbox"
                                                        name="rights[{{ valueSub.special_rights }}][read]" value="1"
                                                        {% if valueSub.read %}checked{% endif %}{% if valueSub.all %} disabled{% endif %}>
                                             </td>
                                             <td class="text-center">
+                                                <input type="hidden" name="rights[{{ valueSub.special_rights }}][write]" value="0">
                                                 <input type="checkbox"
                                                        name="rights[{{ valueSub.special_rights }}][write]"
                                                        value="1"{% if valueSub.write %} checked{% endif %}{% if valueSub.all %} disabled{% endif %}>
                                             </td>
                                             <td class="text-center">
+                                                <input type="hidden" name="rights[{{ valueSub.special_rights }}][delete]" value="0">
                                                 <input type="checkbox"
                                                        name="rights[{{ valueSub.special_rights }}][delete]"
                                                        value="1"{% if valueSub.delete %} checked{% endif %}{% if valueSub.all %} disabled{% endif %}>

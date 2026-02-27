@@ -17,7 +17,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025-2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2026.01.27.0
+ * @version 2026.02.27.0
  * @package Tigress\Users
  */
 class UsersCrudController extends Controller
@@ -97,9 +97,6 @@ class UsersCrudController extends Controller
         $this->checkRights('write');
 
         $systemRights = new SystemRightsRepo();
-        $systemRights->deleteByPrimaryKey([
-            'user_id' => $_POST['id'],
-        ]);
 
         if (isset($_POST['rights'])) {
             foreach ($_POST['rights'] as $tool => $data) {
@@ -108,17 +105,30 @@ class UsersCrudController extends Controller
                 $write = $data['write'] ?? 0;
                 $delete = $data['delete'] ?? 0;
 
-                $systemRights->new();
-                $systemRight = $systemRights->current();
-                $systemRight->user_id = (int)$_POST['id'];
-                $systemRight->tool = $tool;
-                $systemRight->access = (int)$access;
-                $systemRight->read = (int)$read;
-                $systemRight->write = (int)$write;
-                $systemRight->delete = (int)$delete;
-                $systemRights->updateCurrent($systemRight);
+                if ($access == 0 && $read == 0 && $write == 0 && $delete == 0) {
+                    $systemRights->deleteByPrimaryKey([
+                        'user_id' => $_POST['id'],
+                        'tool' => $tool
+                    ]);
+                } else {
+                    $systemRights->reset();
+                    $systemRights->loadByWhere([
+                        'user_id' => (int)$_POST['id'],
+                        'tool' => $tool
+                    ]);
+                    if ($systemRights->isEmpty()) {
+                        $systemRights->new();
+                    }
+                    $systemRight = $systemRights->current();
+                    $systemRight->user_id = (int)$_POST['id'];
+                    $systemRight->tool = $tool;
+                    $systemRight->access = (int)$access;
+                    $systemRight->read = (int)$read;
+                    $systemRight->write = (int)$write;
+                    $systemRight->delete = (int)$delete;
+                    $systemRights->save($systemRight);
+                }
             }
-            $systemRights->saveAll();
         }
 
         $_SESSION['success'] = __('Rights successfully saved.');
