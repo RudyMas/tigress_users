@@ -11,14 +11,47 @@ class UsersRepo extends Repository
 {
     public function __construct()
     {
-        TRANSLATIONS->load(SYSTEM_ROOT . '/vendor/tigress/users/translations/translations.json');
-
         $this->dbName = 'default';
         $this->table = 'users';
         $this->primaryKey = ['id'];
         $this->model = 'DefaultModel';
         $this->autoload = true;
         $this->softDelete = true;
+        $this->createTable = [
+            'table' => "
+                CREATE TABLE {$this->table} (
+                  `id` int(11) NOT NULL,
+                  `oauth_provider` enum('local','facebook','google','itsme','linkedin','microsoft','smartschool') NOT NULL,
+                  `oauth_uid` varchar(100) DEFAULT NULL,
+                  `username` varchar(50) DEFAULT NULL,
+                  `first_name` varchar(30) NOT NULL,
+                  `last_name` varchar(30) NOT NULL,
+                  `email` varchar(100) DEFAULT NULL,
+                  `gender` enum('f','m','x','?') NOT NULL DEFAULT '?',
+                  `locale` varchar(6) NOT NULL,
+                  `avatar` tinytext DEFAULT NULL,
+                  `salt` varchar(64) NOT NULL,
+                  `authorized` varchar(64) NOT NULL,
+                  `access_level` int(11) NOT NULL,
+                  `last_login` timestamp NOT NULL,
+                  `created` timestamp NOT NULL,
+                  `created_user_id` int(11) NOT NULL,
+                  `modified` timestamp NOT NULL,
+                  `modified_user_id` int(11) NOT NULL,
+                  `deleted` timestamp NOT NULL,
+                  `deleted_user_id` int(11) NOT NULL,
+                  `active` int(11) NOT NULL DEFAULT 1
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+                ",
+            'indexes' => [
+                "ALTER TABLE {$this->table} ADD PRIMARY KEY (`id`);",
+                "ALTER TABLE {$this->table} MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;"
+            ],
+            'seed' => [
+                "INSERT INTO {$this->table} (`id`, `oauth_provider`, `oauth_uid`, `username`, `first_name`, `last_name`, `email`, `gender`, `locale`, `avatar`, `salt`, `authorized`, `access_level`, `last_login`, `created`, `created_user_id`, `modified`, `modified_user_id`, `deleted`, `deleted_user_id`, `active`) VALUES
+                   (1, 'local', '', 'super.admin', 'Super', 'Administrator', '', '?', 'en-US', '', '466a0df987e370c19497f3e3a5bb549cb72db92b696107ec7af561c2c04ddaf1', '91459b40c2427ccee86c710bd09d9a6446a5ad608cc3ff4407bfb838d7352c99', 100, '2026-01-01 00:00:00', '2026-01-01 00:00:00', 1, '2026-01-01 00:00:00', 1, '2026-01-01 00:00:00', 1, 1);"
+            ]
+        ];
         parent::__construct();
     }
 
